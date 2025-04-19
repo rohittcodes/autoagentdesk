@@ -1,0 +1,7 @@
+[project]
+name = "auto-agent-desk"
+version = "0.1.0"
+description = "A Python package for analyzing logs and generating reports."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
