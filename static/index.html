@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Analysis AI System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="/static/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <nav class="bg-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <h1 class="text-xl font-bold text-gray-800">Log Analysis AI</h1>
+                        </div>
+                        <div class="hidden md:ml-6 md:flex md:space-x-8">
+                            <a href="#" onclick="showTab('ingest')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium">
+                                Ingest Logs
+                            </a>
+                            <a href="#" onclick="showTab('query')" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                                Query Logs
+                            </a>
+                            <a href="#" onclick="showTab('live')" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                                Live View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div id="ingest-tab" class="tab-content">
+                <div class="bg-white shadow sm:rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900">Ingest Log Files</h2>
+                    <div class="mt-5 grid grid-cols-1 gap-6">
+                        <div class="col-span-1">
+                            <form id="upload-form" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Log Format</label>
+                                    <select name="format" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                        <option value="text">Plain Text</option>
+                                        <option value="json">JSON</option>
+                                        <option value="syslog">Syslog</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Log File</label>
+                                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-gray-600">
+                                                <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                    <span>Upload a file</span>
+                                                    <input id="file-upload" name="file" type="file" class="sr-only">
+                                                </label>
+                                                <p class="pl-1">or drag and drop</p>
+                                            </div>
+                                            <p class="text-xs text-gray-500">Any log file up to 50MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Custom Pattern (optional)</label>
+                                    <input type="text" name="pattern" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., (?P<timestamp>\d{4}-\d{2}-\d{2})">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Timestamp Format (optional)</label>
+                                    <input type="text" name="timestamp_format" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., %Y-%m-%d %H:%M:%S">
+                                </div>
+                                <div>
+                                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Upload and Process
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="query-tab" class="tab-content hidden">
+                <div class="bg-white shadow sm:rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900">Query Logs</h2>
+                    <div class="mt-5">
+                        <form id="query-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Natural Language Query</label>
+                                <textarea name="query" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., Show me all ERROR logs from the last 24 hours"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+                        <div id="query-results" class="mt-6">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="live-tab" class="tab-content hidden">
+                <div class="bg-white shadow sm:rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900">Live Log View</h2>
+                    <div class="mt-5">
+                        <div id="live-logs" class="font-mono text-sm bg-gray-900 text-white p-4 rounded-md h-96 overflow-auto">
+                            <!-- Live logs will be streamed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg hidden">
+        <!-- Notification content will be added here -->
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

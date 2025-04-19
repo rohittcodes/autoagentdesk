@@ -1,7 +1,9 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
-from api.routes import logs, queries
+from api.routes import logs, queries, credentials, ingest
 
 app = FastAPI(
     title="Log Analysis AI API",
@@ -21,10 +23,17 @@ app.add_middleware(
 # Include routers
 app.include_router(logs.router)
 app.include_router(queries.router)
+app.include_router(credentials.router)
+app.include_router(ingest.router)
 
-@app.get("/")
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/", response_class=HTMLResponse)
 async def root():
-    return {"message": "Welcome to the Log Analysis AI API"}
+    """Serve the web UI"""
+    with open("static/index.html") as f:
+        return f.read()
 
 @app.get("/health")
 async def health_check():

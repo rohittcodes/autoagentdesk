@@ -1,14 +1,59 @@
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, Query, HTTPException, WebSocket, WebSocketDisconnect
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
 import asyncio
+import json
 
 # Import our components
 from storage.chroma_client import ChromaLogStore
 from llm.agent import LogAnalysisAgent
+from log_ingestion.fluvio_consumer import LogConsumer
+from config import FLUVIO_TOPIC
 
 # Create router
 router = APIRouter(prefix="/logs", tags=["logs"])
+
+# Store active WebSocket connections
+active_connections: List[WebSocket] = []
+
+# WebSocket manager
+async def notify_clients(log_entry: Dict[str, Any]):
+    """Send log entry to all connected clients"""
+    for connection in active_connections:
+        try:
+            await connection.send_json(log_entry)
+        except Exception:
+            active_connections.remove(connection)
+
+@router.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    """WebSocket endpoint for real-time log streaming"""
+    await websocket.accept()
+    active_connections.append(websocket)
+    
+    try:
+        # Create a consumer just for this connection
+        async def process_log_batch(logs):
+            for log in logs:
+                await websocket.send_json(log)
+        
+        consumer = LogConsumer(FLUVIO_TOPIC, process_log_batch, max_batch_size=1)  # Process logs one at a time
+        consumer_task = asyncio.create_task(consumer.start_consuming())
+        
+        # Keep the connection alive until the client disconnects
+        try:
+            while True:
+                # Wait for client messages (can be used for filtering)
+                data = await websocket.receive_text()
+                # You could implement filtering here based on client messages
+        except WebSocketDisconnect:
+            active_connections.remove(websocket)
+            consumer.running = False
+            consumer_task.cancel()
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+        if websocket in active_connections:
+            active_connections.remove(websocket)
 
 # This would typically be in a dependency injection setup
 async def get_log_store():
