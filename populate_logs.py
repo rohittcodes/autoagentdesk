@@ -3,6 +3,7 @@ from storage.chroma_client import ChromaLogStore
 from datetime import datetime, timedelta, UTC
 import random
 import uuid
+import json
 
 async def populate_logs():
     # Initialize ChromaLogStore
@@ -116,6 +117,12 @@ async def populate_logs():
     # Store logs in the database
     await log_store.store_logs(logs)
     print(f"✅ Successfully populated the database with {len(logs)} logs.")
+
+    output_path = "logs_output.json"
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(logs, f, indent=2)
+
+    print(f"📝 Logs also saved to '{output_path}'.")
 
 if __name__ == "__main__":
     asyncio.run(populate_logs())

@@ -67,16 +67,18 @@ class ChromaLogStore:
             # Prepare metadata (includes timestamp for time-series queries)
             metadata = {
                 "timestamp": log.get("timestamp", datetime.utcnow().isoformat()),
-                "level": log.get("level", "INFO"),
-                "service": log.get("service", "unknown"),
-                "producer_id": log.get("producer_id", "unknown"),
+                "level": str(log.get("level", "INFO")),  # Convert to string
+                "service": str(log.get("service", "unknown")),  # Convert to string
+                "producer_id": str(log.get("producer_id", "unknown")),  # Convert to string
             }
             
             # Add any additional metadata
             if "metadata" in log and isinstance(log["metadata"], dict):
                 for key, value in log["metadata"].items():
-                    # Ensure metadata values are strings, numbers, or booleans (Chroma requirement)
-                    if isinstance(value, (str, int, float, bool)):
+                    # Handle null values and ensure all values are strings, numbers, or booleans
+                    if value is None:
+                        metadata[f"metadata_{key}"] = "null"
+                    elif isinstance(value, (str, int, float, bool)):
                         metadata[f"metadata_{key}"] = value
                     else:
                         metadata[f"metadata_{key}"] = str(value)

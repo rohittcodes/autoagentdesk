@@ -53,7 +53,10 @@ class TextLogSource(LocalFileLogSource):
                 yield {
                     "timestamp": datetime.utcnow().isoformat(),
                     "message": line,
-                    "level": "UNKNOWN"
+                    "level": "UNKNOWN",
+                    "service": "text-log",
+                    "producer_id": "file",
+                    "metadata": {}
                 }
                 continue
             
@@ -76,6 +79,9 @@ class TextLogSource(LocalFileLogSource):
                 "timestamp": timestamp.isoformat(),
                 "level": data.get("level", "INFO"),
                 "message": data.get("message", line),
+                "service": "text-log",
+                "producer_id": "file",
+                "metadata": {}
             }
     
     async def get_logs(

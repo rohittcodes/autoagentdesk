@@ -28,7 +28,14 @@ cd autoagentdesk
 pip install -r requirements.txt
 ```
 
-Note: For this prototype, we are just dumping the logs into a file. We're working on integrating with Fluvio for log streaming. The integration is in progress, and we will update the documentation once it's complete.
+Note: For this prototype, we are just dumping the logs into a file. We're working on integrating with Fluvio for log streaming. The integration is in progress, and we will update the documentation once it's complete. Also there are other sources like Redis, PostgreSQL, and Docker that are yet to be implemented.
+
+Populate the `chromadb` database with the logs you want to analyze. You can use the `populate_logs.py` script to do this. The script will read the logs from a specified file and populate the database with the log entries.
+
+```bash
+python populate_logs.py
+```
+this will create a `chromadb` database in the current directory with the logs you want to analyze.
 
 ## Usage
 Before using AutoAgentDesk, make sure to set up the necessary environment variables for the Gemini AI API and any other required configurations. You can do this by creating a `.env` file in the root directory of the project and adding the following lines from the `.env_sample` file:
@@ -72,7 +79,7 @@ You can then access the API at `http://localhost:8000`. The API provides endpoin
 - [ ] Improve documentation and examples
 - [ ] Add more test cases and improve test coverage
 - [ ] Implement a plugin system for extensibility
-- [ ] Add support for more data formats (e.g., JSON, XML)
+- [x] Add support for more log formats (e.g., JSON, XML)
 
 ## Contributing
 We welcome contributions to AutoAgentDesk! If you have ideas for new features, improvements, or bug fixes, please open an issue or submit a pull request. Please make sure to follow the [contribution guidelines](CONTRIBUTING.md) when contributing to the project.

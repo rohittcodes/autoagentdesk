@@ -38,12 +38,40 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
+function updateFileName(input) {
+    const filenameElement = document.getElementById('selected-filename');
+    if (input.files && input.files[0]) {
+        filenameElement.textContent = `Selected file: ${input.files[0].name}`;
+        filenameElement.classList.remove('hidden');
+    } else {
+        filenameElement.classList.add('hidden');
+    }
+}
+
+function setUploadingState(isUploading) {
+    const button = document.getElementById('upload-button');
+    const spinner = document.getElementById('upload-spinner');
+    const text = document.getElementById('upload-text');
+    
+    button.disabled = isUploading;
+    if (isUploading) {
+        spinner.classList.remove('hidden');
+        text.textContent = 'Uploading...';
+        button.classList.add('opacity-75', 'cursor-not-allowed');
+    } else {
+        spinner.classList.add('hidden');
+        text.textContent = 'Upload and Process';
+        button.classList.remove('opacity-75', 'cursor-not-allowed');
+    }
+}
+
 document.getElementById('upload-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const formData = new FormData(e.target);
     
     try {
+        setUploadingState(true);
         const response = await fetch('/ingest/file', {
             method: 'POST',
             body: formData
@@ -53,11 +81,15 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
         
         if (response.ok) {
             showNotification(result.message);
+            e.target.reset();
+            document.getElementById('selected-filename').classList.add('hidden');
         } else {
             showNotification(result.detail || 'Error uploading file', 'error');
         }
     } catch (error) {
         showNotification('Error uploading file: ' + error.message, 'error');
+    } finally {
+        setUploadingState(false);
     }
 });
 
