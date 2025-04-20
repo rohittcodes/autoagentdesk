@@ -7,18 +7,30 @@ AutoAgentDesk is an AI agent designed to assist with log analytics and querying.
 - Visualizing data (yet to be implemented)
 - Answering questions about logs
 - Generating insights
+## Architecture Diagrams & Snapshots
 
-## Snapshots
-### File ingestion
-![file-ingestion](https://github.com/user-attachments/assets/bf2f5e84-5e04-4a9f-8f83-1d6d66e5f315)
-### Analyzing state
-![analyzing-state](https://github.com/user-attachments/assets/2a2a5de4-264d-4fac-b2ab-70c4c9a45aaf)
-### Analysis Report
-![analysis-report](https://github.com/user-attachments/assets/b0e791c4-c219-407a-9715-31eea8bd16a1)
-### Timeline
-![timeline](https://github.com/user-attachments/assets/83b159b1-cbac-42c3-9676-65195af42587)
-### Agent state
-![agent-state](https://github.com/user-attachments/assets/312a5855-5194-4c18-81f5-42ce858c3938)
+<details>
+  <summary><strong>Click to view architecture diagrams and snapshots</strong></summary>
+  <br/>
+  
+  ### Architecture Diagrams
+  
+  ![llm-groq](https://github.com/user-attachments/assets/f56899ed-e364-4dee-bc6f-f828aeb828ec)  
+  ![fluvio](https://github.com/user-attachments/assets/18a4aa95-5b9d-45a2-8a7d-fba8c2799ae8)  
+  ![architecture](https://github.com/user-attachments/assets/21fca950-0ab3-452b-b389-0ac58fdcb2ff)  
+  ![dataflow](https://github.com/user-attachments/assets/8f889f96-3d29-4be8-909d-e900ec380be7)
+
+  ### Snapshots
+  #### File ingestion  
+  ![file-ingestion](https://github.com/user-attachments/assets/bf2f5e84-5e04-4a9f-8f83-1d6d66e5f315)
+  #### Analysis Report  
+  ![analysis-report](https://github.com/user-attachments/assets/b0e791c4-c219-407a-9715-31eea8bd16a1)
+  #### Timeline  
+  ![timeline](https://github.com/user-attachments/assets/83b159b1-cbac-42c3-9676-65195af42587)
+  #### Agent state  
+  ![agent-state](https://github.com/user-attachments/assets/312a5855-5194-4c18-81f5-42ce858c3938)
+
+</details>
 
 ## Technology Stack
 - Python
