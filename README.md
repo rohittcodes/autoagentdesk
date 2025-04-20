@@ -23,7 +23,7 @@ AutoAgentDesk is an AI agent designed to assist with log analytics and querying.
 ## Technology Stack
 - Python
 - MultiModel support (Groq AI, Gemini AI, OpenAI, Anthropic)
-- Fluvio (for log streaming) - (status: in progress)
+- Fluvio (for log streaming)
 - LangChain
 - Chromadb
 - FastAPI
@@ -40,7 +40,7 @@ cd autoagentdesk
 pip install -r requirements.txt
 ```
 
-Note: For this prototype, we are just dumping the logs into a file. We're working on integrating with Fluvio for log streaming. The integration is in progress, and we will update the documentation once it's complete. Also there are other sources like Redis, PostgreSQL, and Docker that are yet to be implemented.
+> Note: There are other sources like Redis, PostgreSQL, and Docker that are yet to be implemented.
 
 You can pass any AI model you want to use for log analysis. Currently, we have implemented support for Groq AI, Gemini AI, OpenAI, and Anthropic. You can choose the model you want to use by setting the `MODEL` environment variable in your `.env` file.
 
@@ -84,14 +84,15 @@ You can then access the API at `http://localhost:8000`. The API provides endpoin
 
 ## Roadmap
 
-- [ ] Implement visualization capabilities
-- [ ] Add support for more log sources
-- [ ] Improve natural language understanding
+- [x] Implement visualization capabilities
+- [x] Add support for more log sources
+- [x] Improve natural language understanding
 - [ ] Enhance performance and scalability
 - [ ] Add more advanced analytics features
 - [ ] Implement user authentication and authorization
-- [ ] Create a web interface for easier interaction
-- [ ] Add support for real-time log monitoring
+- [x] Create a web interface for easier interaction
+- [ ] Update the web interface to use ReactJS
+- [x] Add support for real-time log monitoring
 - [ ] Implement alerting and notification features
 - [ ] Add support for more languages
 - [ ] Improve documentation and examples
