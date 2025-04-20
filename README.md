@@ -8,6 +8,18 @@ AutoAgentDesk is an AI agent designed to assist with log analytics and querying.
 - Answering questions about logs
 - Generating insights
 
+## Snapshots
+### File ingestion
+![file-ingestion](https://github.com/user-attachments/assets/bf2f5e84-5e04-4a9f-8f83-1d6d66e5f315)
+### Analyzing state
+![analyzing-state](https://github.com/user-attachments/assets/2a2a5de4-264d-4fac-b2ab-70c4c9a45aaf)
+### Analysis Report
+![analysis-report](https://github.com/user-attachments/assets/b0e791c4-c219-407a-9715-31eea8bd16a1)
+### Timeline
+![timeline](https://github.com/user-attachments/assets/83b159b1-cbac-42c3-9676-65195af42587)
+### Agent state
+![agent-state](https://github.com/user-attachments/assets/312a5855-5194-4c18-81f5-42ce858c3938)
+
 ## Technology Stack
 - Python
 - Gemini AI API - (to be replaced with OpenAI API)
