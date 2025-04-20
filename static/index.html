@@ -24,8 +24,14 @@
                             <a href="#" onclick="showTab('query')" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
                                 Query Logs
                             </a>
+                            <a href="#" onclick="showTab('agent')" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                                Agent State
+                            </a>
+                            <a href="#" onclick="showTab('database')" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                                Database Logs
+                            </a>
                             <a href="#" onclick="showTab('live')" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
-                                Live View
+                                Live Logs
                             </a>
                         </div>
                     </div>
@@ -93,15 +99,42 @@
             <div id="query-tab" class="tab-content hidden">
                 <div class="bg-white shadow sm:rounded-lg p-6">
                     <h2 class="text-lg font-medium text-gray-900">Query Logs</h2>
+                    <div class="flex items-center mb-4">
+                        <div id="agent-state-indicator" class="flex items-center space-x-2 mr-4 py-1 px-3 rounded-full text-sm bg-blue-100 text-blue-800">
+                            <span class="inline-block h-2 w-2 rounded-full bg-blue-600"></span>
+                            <span>Idle</span>
+                        </div>
+                        <div class="flex-grow"></div>
+                        <button onclick="refreshAgentState()" class="text-sm text-gray-600 hover:text-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Refresh state
+                        </button>
+                    </div>
                     <div class="mt-5">
                         <form id="query-form" class="space-y-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Natural Language Query</label>
                                 <textarea name="query" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., Show me all ERROR logs from the last 24 hours"></textarea>
                             </div>
+                            <div class="flex space-x-3">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="include-context" name="include-context" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label for="include-context" class="ml-2 block text-sm text-gray-700">Include historical context</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="include-logs" name="include-logs" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label for="include-logs" class="ml-2 block text-sm text-gray-700">Show logs in results</label>
+                                </div>
+                            </div>
                             <div>
-                                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Search
+                                <button type="submit" id="query-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <span id="query-text">Search</span>
+                                    <svg id="query-spinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
                                 </button>
                             </div>
                         </form>
@@ -112,13 +145,282 @@
                 </div>
             </div>
 
+            <div id="agent-tab" class="tab-content hidden">
+                <div class="bg-white shadow sm:rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-medium text-gray-900">Agent State Monitor</h2>
+                        <div class="flex items-center space-x-4">
+                            <!-- Model Selector Dropdown -->
+                            <div class="relative inline-block text-left">
+                                <button id="model-selector-button" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <span id="current-model-display">Loading model...</span>
+                                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                                <div id="model-selector-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                                    <div class="py-1" role="menu" aria-orientation="vertical">
+                                        <div class="px-4 py-2 text-xs text-gray-500 font-semibold border-b">Google AI</div>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="google" data-model="gemini-1.5-pro">Gemini 1.5 Pro</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="google" data-model="gemini-pro">Gemini Pro</button>
+                                        
+                                        <div class="px-4 py-2 text-xs text-gray-500 font-semibold border-b">OpenAI</div>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="openai" data-model="gpt-4o">GPT-4o</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="openai" data-model="gpt-4-turbo">GPT-4 Turbo</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="openai" data-model="gpt-3.5-turbo">GPT-3.5 Turbo</button>
+                                        
+                                        <div class="px-4 py-2 text-xs text-gray-500 font-semibold border-b">Anthropic</div>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="anthropic" data-model="claude-3-opus-20240229">Claude 3 Opus</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="anthropic" data-model="claude-3-sonnet-20240229">Claude 3 Sonnet</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="anthropic" data-model="claude-3-haiku-20240307">Claude 3 Haiku</button>
+                                        
+                                        <div class="px-4 py-2 text-xs text-gray-500 font-semibold border-b">Groq</div>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="groq" data-model="llama3-70b-8192">Llama 3 70B</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="groq" data-model="llama3-8b-8192">Llama 3 8B</button>
+                                        <button class="model-option block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100" data-provider="groq" data-model="mixtral-8x7b-32768">Mixtral 8x7B</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button onclick="refreshAgentState()" class="flex items-center text-sm text-indigo-600 hover:text-indigo-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-5 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Agent Status Card -->
+                        <div class="bg-gray-50 rounded-lg shadow p-4">
+                            <h3 class="text-base font-medium text-gray-900 mb-2">Agent Status</h3>
+                            <div id="agent-status" class="space-y-2">
+                                <div class="flex items-center">
+                                    <div id="agent-status-indicator" class="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
+                                    <span id="agent-status-text" class="text-sm font-medium">Active</span>
+                                </div>
+                                <div class="text-sm text-gray-500">
+                                    <p>Last activity: <span id="agent-last-activity">Now</span></p>
+                                    <p>Memory usage: <span id="agent-memory-usage">0</span> stored contexts</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Knowledge State Card -->
+                        <div class="bg-gray-50 rounded-lg shadow p-4">
+                            <h3 class="text-base font-medium text-gray-900 mb-2">Knowledge State</h3>
+                            <div id="agent-knowledge" class="text-sm">
+                                <p><span class="font-medium">Known issues:</span> <span id="known-issues-count">0</span></p>
+                                <p><span class="font-medium">Detected patterns:</span> <span id="patterns-count">0</span></p>
+                                <p><span class="font-medium">Conversation history:</span> <span id="conversation-count">0</span> queries</p>
+                            </div>
+                        </div>
+                        
+                        <!-- System Health Card -->
+                        <div class="bg-gray-50 rounded-lg shadow p-4">
+                            <h3 class="text-base font-medium text-gray-900 mb-2">System Health</h3>
+                            <div id="system-health" class="space-y-1 text-sm">
+                                <div class="flex justify-between items-center">
+                                    <span>Critical errors:</span>
+                                    <span id="critical-errors" class="font-medium text-red-600">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Warning count:</span>
+                                    <span id="warning-count" class="font-medium text-yellow-600">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Healthy services:</span>
+                                    <span id="healthy-services" class="font-medium text-green-600">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Findings Timeline -->
+                    <div class="mt-6">
+                        <h3 class="text-base font-medium text-gray-900 mb-4">Agent Findings Timeline</h3>
+                        <div id="findings-timeline" class="space-y-4">
+                            <div class="text-sm text-gray-500 text-center py-6">
+                                Loading agent findings...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- System State JSON -->
+                    <div class="mt-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-medium text-gray-900">Raw Agent State</h3>
+                            <button id="toggle-raw-state" class="text-xs text-indigo-600 hover:text-indigo-800">Show</button>
+                        </div>
+                        <div id="raw-agent-state" class="mt-2 hidden">
+                            <pre class="bg-gray-800 text-gray-200 p-4 rounded-md text-xs overflow-auto max-h-96"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="database-tab" class="tab-content hidden">
+                <div class="bg-white shadow sm:rounded-lg p-6"></div>
+                    <h2 class="text-lg font-medium text-gray-900">Database Log Streaming</h2>
+                    <div class="mt-5 grid grid-cols-1 gap-6">
+                        <div class="col-span-1">
+                            <form id="db-connection-form" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Database Type</label>
+                                    <select id="db-type" name="db_type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                        <option value="postgresql">PostgreSQL</option>
+                                        <option value="mysql">MySQL / MariaDB</option>
+                                        <option value="supabase">Supabase</option>
+                                        <option value="neon">Neon DB</option>
+                                        <option value="sqlite">SQLite</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="connection-fields">
+                                    <div id="uri-field">
+                                        <label class="block text-sm font-medium text-gray-700">Connection URI</label>
+                                        <input type="text" name="uri" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., postgresql://user:pass@localhost:5432/db">
+                                        <p class="text-xs text-gray-500 mt-1">Connection URI format: [db_type]://[username]:[password]@[host]:[port]/[database_name]</p>
+                                    </div>
+                                    
+                                    <div id="detailed-connection-fields" class="hidden space-y-4 mt-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Host</label>
+                                            <input type="text" name="host" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., localhost or db.example.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Port</label>
+                                            <input type="text" name="port" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., 5432">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Database Name</label>
+                                            <input type="text" name="database" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., my_database">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Username</label>
+                                            <input type="text" name="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., dbuser">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Password</label>
+                                            <input type="password" name="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Your database password">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <button type="button" id="toggle-connection-details" class="text-sm text-indigo-600 hover:text-indigo-800">
+                                            Use detailed connection fields instead
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Log Query / Table</label>
+                                    <div class="mt-1 relative">
+                                        <textarea name="log_query" rows="3" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="SQL query to fetch logs or table name"></textarea>
+                                        <div class="absolute top-0 right-0 mt-2 mr-2">
+                                            <button type="button" id="use-default-log-query" class="text-xs text-indigo-600 hover:text-indigo-800">
+                                                Use Default
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Specify a SQL query that fetches logs or just provide a table name where logs are stored.</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Refresh Interval (seconds)</label>
+                                    <input type="number" name="refresh_interval" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="10" min="1" max="3600">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Field Mappings (optional)</label>
+                                    <div class="mt-2 grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-xs text-gray-500">Timestamp Column</label>
+                                            <input type="text" name="timestamp_field" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., created_at">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500">Message Column</label>
+                                            <input type="text" name="message_field" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., log_message">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500">Level Column</label>
+                                            <input type="text" name="level_field" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., severity">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500">Service Column</label>
+                                            <input type="text" name="service_field" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="e.g., application">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <input id="save-connection" name="save_connection" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="save-connection" class="font-medium text-gray-700">Save connection for future use</label>
+                                        <p class="text-gray-500">Connection details will be encrypted and stored locally.</p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <button type="submit" id="connect-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        <span id="connect-text">Connect and Stream Logs</span>
+                                        <svg id="connect-spinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Saved Connections Section -->
+                        <div id="saved-connections" class="mt-6">
+                            <h3 class="text-base font-medium text-gray-900 mb-3">Saved Connections</h3>
+                            <div id="connections-list" class="bg-gray-50 rounded-md p-4">
+                                <p class="text-sm text-gray-500 text-center">No saved connections found.</p>
+                                <!-- Saved connections will be listed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Database Log Stream Output -->
+                <div class="bg-white shadow sm:rounded-lg p-6 mt-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-medium text-gray-900">Database Logs Stream</h3>
+                        <div class="flex space-x-2">
+                            <button id="pause-stream-button" class="px-2 py-1 border border-transparent text-xs rounded text-white bg-yellow-600 hover:bg-yellow-700 hidden">
+                                Pause Stream
+                            </button>
+                            <button id="resume-stream-button" class="px-2 py-1 border border-transparent text-xs rounded text-white bg-green-600 hover:bg-green-700 hidden">
+                                Resume Stream
+                            </button>
+                            <button id="disconnect-button" class="px-2 py-1 border border-transparent text-xs rounded text-white bg-red-600 hover:bg-red-700 hidden">
+                                Disconnect
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 bg-gray-800 rounded-md p-4 h-96 overflow-auto">
+                        <div id="db-logs-container" class="text-sm text-gray-300 space-y-2">
+                            <p class="text-center text-gray-500">Connect to a database to view logs.</p>
+                        </div>
+                    </div>
+                    <div id="stream-stats" class="mt-2 text-xs text-gray-500 hidden">
+                        <span>Connected to: <span id="current-db-connection">-</span></span>
+                        <span class="ml-4">Logs received: <span id="logs-count">0</span></span>
+                        <span class="ml-4">Last update: <span id="last-update-time">-</span></span>
+                    </div>
+                </div>
+            </div>
+            
             <div id="live-tab" class="tab-content hidden">
                 <div class="bg-white shadow sm:rounded-lg p-6">
-                    <h2 class="text-lg font-medium text-gray-900">Live Log View</h2>
-                    <div class="mt-5">
-                        <div id="live-logs" class="font-mono text-sm bg-gray-900 text-white p-4 rounded-md h-96 overflow-auto">
-                            <!-- Live logs will be streamed here -->
-                        </div>
+                    <h2 class="text-lg font-medium text-gray-900">Live Log Stream</h2>
+                    <p class="text-sm text-gray-600 mt-1">All logs will be streamed here in real-time.</p>
+                    <div class="mt-4 bg-gray-800 rounded-md p-4 h-96 overflow-auto">
+                        <div id="live-logs" class="text-sm text-gray-300"></div>
                     </div>
                 </div>
             </div>

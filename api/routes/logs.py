@@ -45,7 +45,7 @@ async def websocket_endpoint(websocket: WebSocket):
             while True:
                 # Wait for client messages (can be used for filtering)
                 data = await websocket.receive_text()
-                # You could implement filtering here based on client messages
+                # could implement filtering here based on client messages
         except WebSocketDisconnect:
             active_connections.remove(websocket)
             consumer.running = False

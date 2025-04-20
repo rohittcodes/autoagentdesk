@@ -4,7 +4,7 @@ import sys
 from config import FLUVIO_TOPIC, CHROMA_DB_PATH, MAX_BATCH_SIZE, PROCESSING_INTERVAL, LOG_RETENTION_DAYS
 
 async def main():
-    print("Starting Log Analysis AI System with Google Gemini...")
+    print("Starting Log Analysis AI System...")
     
     # Initialize components
     from storage.chroma_client import ChromaLogStore

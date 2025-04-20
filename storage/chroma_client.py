@@ -146,7 +146,21 @@ class ChromaLogStore:
             print(f"DEBUG - Constructed where clause: {where_clause}")
 
             # Execute query
-            query_text = query if query else ""
+            # Fix: Ensure query_text is a string, not a list or other type
+            if query is None:
+                query_text = ""
+            elif isinstance(query, str):
+                query_text = query
+            elif isinstance(query, list):
+                # If it's a list, convert it to a string
+                if query and len(query) > 0:
+                    query_text = str(query[0])
+                else:
+                    query_text = ""
+            else:
+                # For any other type, convert to string
+                query_text = str(query)
+                
             print(f"DEBUG - Executing query with text: '{query_text}'")
             
             # Skip the where clause if it's empty

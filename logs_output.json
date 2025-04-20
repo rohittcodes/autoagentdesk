@@ -1,1202 +1,1202 @@
 [
   {
-    "timestamp": "2025-04-18T13:03:30.640997+00:00",
-    "producer_id": "087b8245",
-    "level": "DEBUG",
-    "service": "worker",
-    "message": "### Cache Operation\n- Type: `delete`\n- Key: `cache:session:d46ba7e0`\n- TTL: 2496s",
-    "metadata": {
-      "request_id": "04a0b5db-3634-45e3-82c7-6a91d3f3ab5f",
-      "duration_ms": 478,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T09:17:30.641154+00:00",
-    "producer_id": "db705289",
-    "level": "INFO",
-    "service": "api",
-    "message": "## Deployment Success\nDeployed version `3.3.2` to production\n- \ud83d\ude80 Services updated: cache, auth\n- \u23f1\ufe0f Duration: 66s",
-    "metadata": {
-      "request_id": "0c9af36d-9f0b-4975-a422-8cba4862dcff",
-      "duration_ms": 191,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T10:31:30.641246+00:00",
-    "producer_id": "4722c212",
-    "level": "INFO",
-    "service": "database",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 155ms\n- Success Rate: 93%\n- Total Requests: 7150\n```",
-    "metadata": {
-      "request_id": "27c8ff0c-42f5-434f-88e5-807f7f2931a4",
-      "duration_ms": 443,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T05:27:30.641323+00:00",
-    "producer_id": "37a67870",
-    "level": "INFO",
-    "service": "worker",
-    "message": "## Deployment Success\nDeployed version `2.1.2` to production\n- \ud83d\ude80 Services updated: worker, database\n- \u23f1\ufe0f Duration: 132s",
-    "metadata": {
-      "request_id": "df77ae49-c1c4-4dfd-8755-0df8b09f2b21",
-      "duration_ms": 825,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:13:30.641393+00:00",
-    "producer_id": "992a3533",
-    "level": "ERROR",
-    "service": "auth",
-    "message": "## Database Connection Error\nFailed to connect to database:\n```\nAuthentication failed\n```\nAttempted connection to: `db-4.example.com`",
-    "metadata": {
-      "request_id": "b4563518-b047-4af9-bbf2-fef8ae688e66",
-      "duration_ms": 874,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T05:18:30.641468+00:00",
-    "producer_id": "4ad90783",
+    "timestamp": "2025-04-20T09:42:10.086392+00:00",
+    "producer_id": "db5c17d4",
     "level": "WARN",
-    "service": "auth",
-    "message": "### High CPU Usage\n- Current: **97%**\n- Threshold: 80%\n- Service: `auth`",
-    "metadata": {
-      "request_id": "26c4d8d8-5d91-4ba7-b0d7-e8600a06d035",
-      "duration_ms": 41,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T13:56:30.641535+00:00",
-    "producer_id": "5d8af385",
-    "level": "ERROR",
     "service": "worker",
-    "message": "### Authentication Failed\n- User: `user_7844`\n- Source IP: `192.168.1.38`\n- Reason: Invalid credentials",
+    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 91% |\n| Miss Rate | 11% |",
     "metadata": {
-      "request_id": "43fa2118-a04a-42fb-b1c4-3745b5f48c04",
-      "duration_ms": 256,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T11:20:30.641600+00:00",
-    "producer_id": "25eef5c4",
-    "level": "WARN",
-    "service": "database",
-    "message": "### High CPU Usage\n- Current: **81%**\n- Threshold: 80%\n- Service: `database`",
-    "metadata": {
-      "request_id": "96ef8b14-a229-498d-aff1-2731b357ecbd",
-      "duration_ms": 379,
+      "request_id": "6773503d-3f48-49d3-a77f-22e052a6ac06",
+      "duration_ms": 728,
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
   },
   {
-    "timestamp": "2025-04-19T02:14:30.641665+00:00",
-    "producer_id": "715e6db6",
-    "level": "WARN",
-    "service": "database",
-    "message": "### High CPU Usage\n- Current: **85%**\n- Threshold: 80%\n- Service: `database`",
-    "metadata": {
-      "request_id": "c9548f63-0476-4f4e-b810-8e6ef8adaa1a",
-      "duration_ms": 772,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T11:48:30.641730+00:00",
-    "producer_id": "f0ce55ce",
+    "timestamp": "2025-04-20T06:13:10.086545+00:00",
+    "producer_id": "998dc415",
     "level": "INFO",
-    "service": "api",
-    "message": "### New User Registration\n- Username: `user_60b93cc1`\n- Email: user_6086@example.com\n- Status: \u2705 Verified",
+    "service": "ai-agent",
+    "message": "# mistral Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1413ms |\n| Success Rate | 78% |\n| Cost | $0.05 |",
     "metadata": {
-      "request_id": "ccdd8ea9-865a-47b2-bf93-55da5d11e80f",
-      "duration_ms": 79,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T22:03:30.641795+00:00",
-    "producer_id": "ed835bb8",
-    "level": "DEBUG",
-    "service": "worker",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"GET\",\n  \"path\": \"/api/products/dc49eae0\",\n  \"duration\": \"29ms\"\n}\n```",
-    "metadata": {
-      "request_id": "595b1d6c-3a1d-4796-9227-5b9b3a4c2617",
-      "duration_ms": 192,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T22:48:30.641864+00:00",
-    "producer_id": "fe684c55",
-    "level": "ERROR",
-    "service": "api",
-    "message": "### Authentication Failed\n- User: `user_6389`\n- Source IP: `192.168.1.157`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "5a4bbc81-d94f-43d9-8481-2a7dc35086f2",
-      "duration_ms": 700,
+      "request_id": "ed022c05-fd06-476a-a761-c1d68b85e9fd",
+      "duration_ms": 797,
       "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-19T08:53:30.641928+00:00",
-    "producer_id": "fbf092f7",
-    "level": "INFO",
-    "service": "database",
-    "message": "### New User Registration\n- Username: `user_c29b1fec`\n- Email: user_2379@example.com\n- Status: \u2705 Verified",
+    "timestamp": "2025-04-20T08:02:10.086599+00:00",
+    "producer_id": "06163d29",
+    "level": "ERROR",
+    "service": "worker",
+    "message": "### Authentication Failed\n- User: `user_5425`\n- Source IP: `192.168.1.120`\n- Reason: Invalid credentials",
     "metadata": {
-      "request_id": "663bdeff-561b-46d5-912a-b047042598a2",
-      "duration_ms": 319,
+      "request_id": "1e229069-6e70-4fb2-9ec1-2ac02184abf9",
+      "duration_ms": 300,
       "user_agent": "curl/7.68.0"
     }
   },
   {
-    "timestamp": "2025-04-18T17:37:30.642004+00:00",
-    "producer_id": "94cbd846",
+    "timestamp": "2025-04-20T09:39:10.086676+00:00",
+    "producer_id": "c6b1964a",
+    "level": "WARN",
+    "service": "auth",
+    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 899\n- Limit: 1000\n- Endpoint: `/api/v1/products`",
+    "metadata": {
+      "request_id": "3c0c6452-732d-4713-844c-6bbdceaece84",
+      "duration_ms": 50,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T15:30:10.086744+00:00",
+    "producer_id": "ed5ad8ed",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "## openai Model Call\n- Model: `llama3-70b-instruct`\n- Response time: 530ms\n- Tokens: 1225\n- Status: success",
+    "metadata": {
+      "request_id": "a3be6e83-f80a-4073-8560-8b65cf9046a8",
+      "duration_ms": 666,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T07:16:10.086782+00:00",
+    "producer_id": "6c3ceae8",
     "level": "INFO",
+    "service": "api",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 68ms\n- Success Rate: 98%\n- Total Requests: 5745\n```",
+    "metadata": {
+      "request_id": "710724c0-a092-4956-af3a-d6ca7ed31e90",
+      "duration_ms": 744,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T05:49:10.086847+00:00",
+    "producer_id": "4e614ded",
+    "level": "DEBUG",
+    "service": "worker",
+    "message": "## Function Trace\n1. Entry: `process_order`\n2. Args: `id=e3673785`\n3. Return: `partial`",
+    "metadata": {
+      "request_id": "02a2fbb5-99c7-42f0-b166-dd0d77ba9042",
+      "duration_ms": 230,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:51:10.086911+00:00",
+    "producer_id": "5e7fb1c0",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "## openai Model Call\n- Model: `claude-3-opus`\n- Response time: 4001ms\n- Tokens: 1722\n- Status: success",
+    "metadata": {
+      "request_id": "c5cea4bc-7223-4fe4-aa27-b2b80f348124",
+      "duration_ms": 850,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:28:10.086943+00:00",
+    "producer_id": "e1926165",
+    "level": "INFO",
+    "service": "worker",
+    "message": "## Deployment Success\nDeployed version `4.2.1` to production\n- \ud83d\ude80 Services updated: auth, database\n- \u23f1\ufe0f Duration: 248s",
+    "metadata": {
+      "request_id": "30e40c1b-f296-4e46-96bf-2be84ca69e09",
+      "duration_ms": 580,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T21:07:10.087008+00:00",
+    "producer_id": "13cda7de",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nRequest timeout\n```\n- Model: `claude-3-opus`",
+    "metadata": {
+      "request_id": "1e8ff0ca-fe12-4abd-9f85-2dd68d464695",
+      "duration_ms": 42,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T16:51:10.087040+00:00",
+    "producer_id": "d478c7ea",
+    "level": "ERROR",
     "service": "cache",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 253ms\n- Success Rate: 90%\n- Total Requests: 1523\n```",
+    "message": "### Authentication Failed\n- User: `user_9796`\n- Source IP: `192.168.1.144`\n- Reason: Invalid credentials",
     "metadata": {
-      "request_id": "a4f4e0af-c09a-4605-9223-d7662caac401",
-      "duration_ms": 514,
+      "request_id": "83a4b598-d4b7-437b-9634-cdc6aad5ecd9",
+      "duration_ms": 7,
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
   },
   {
-    "timestamp": "2025-04-19T09:38:30.642068+00:00",
-    "producer_id": "cf3ed6bb",
+    "timestamp": "2025-04-19T14:43:10.087101+00:00",
+    "producer_id": "4e82e899",
     "level": "DEBUG",
-    "service": "api",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"GET\",\n  \"path\": \"/api/orders/863c6c2e\",\n  \"duration\": \"31ms\"\n}\n```",
+    "service": "ai-agent",
+    "message": "## mistral Model Call\n- Model: `gpt-4o`\n- Response time: 2876ms\n- Tokens: 1120\n- Status: rate_limited",
     "metadata": {
-      "request_id": "110c786e-2b52-41e5-b965-739680a2e736",
-      "duration_ms": 338,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T07:49:30.642138+00:00",
-    "producer_id": "15e872a5",
-    "level": "WARN",
-    "service": "worker",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 73% |\n| Miss Rate | 6% |",
-    "metadata": {
-      "request_id": "4682305e-9780-40b3-8239-588434f8c36c",
-      "duration_ms": 212,
+      "request_id": "47819d5a-39a3-4f6b-8b0b-cd97b025835b",
+      "duration_ms": 959,
       "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-18T23:28:30.642202+00:00",
-    "producer_id": "7952e880",
-    "level": "WARN",
-    "service": "cache",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 95% |\n| Miss Rate | 38% |",
-    "metadata": {
-      "request_id": "fe1d7296-4684-40fb-ba75-094d4d7e84d6",
-      "duration_ms": 172,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T22:03:30.642265+00:00",
-    "producer_id": "e55cb13c",
+    "timestamp": "2025-04-20T06:39:10.087137+00:00",
+    "producer_id": "8257b467",
     "level": "INFO",
-    "service": "auth",
-    "message": "## Deployment Success\nDeployed version `4.3.4` to production\n- \ud83d\ude80 Services updated: worker\n- \u23f1\ufe0f Duration: 250s",
+    "service": "api",
+    "message": "### New User Registration\n- Username: `user_b9ac0c7b`\n- Email: user_5295@example.com\n- Status: \u2705 Verified",
     "metadata": {
-      "request_id": "88b4c7bb-0b80-4c91-8cda-9710180caf06",
-      "duration_ms": 779,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T06:43:30.642330+00:00",
-    "producer_id": "084923dc",
-    "level": "DEBUG",
-    "service": "worker",
-    "message": "## Function Trace\n1. Entry: `process_payment`\n2. Args: `id=9a166007`\n3. Return: `success`",
-    "metadata": {
-      "request_id": "cf31bc9e-4fe6-422d-81c0-f0a312ee4ebe",
-      "duration_ms": 226,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T01:57:30.642396+00:00",
-    "producer_id": "ed645522",
-    "level": "ERROR",
-    "service": "worker",
-    "message": "### Authentication Failed\n- User: `user_9431`\n- Source IP: `192.168.1.130`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "7e359f58-cd9b-449d-87ee-6450f7e27bc2",
-      "duration_ms": 128,
+      "request_id": "19f8cb83-a71f-4c49-9197-4f9a7c6968be",
+      "duration_ms": 381,
       "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-18T23:43:30.642460+00:00",
-    "producer_id": "4ea1fa46",
+    "timestamp": "2025-04-19T15:05:10.087201+00:00",
+    "producer_id": "817ee5e8",
+    "level": "DEBUG",
+    "service": "auth",
+    "message": "## Function Trace\n1. Entry: `process_user`\n2. Args: `id=48626605`\n3. Return: `cached`",
+    "metadata": {
+      "request_id": "2bb81f81-2d38-45c1-9be6-61a7ffaf9611",
+      "duration_ms": 907,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:38:10.087264+00:00",
+    "producer_id": "b0786390",
     "level": "DEBUG",
     "service": "cache",
-    "message": "### Cache Operation\n- Type: `delete`\n- Key: `cache:session:1b9a1b74`\n- TTL: 3416s",
+    "message": "### Request Details\n```json\n{\n  \"method\": \"GET\",\n  \"path\": \"/api/orders/88ee629d\",\n  \"duration\": \"221ms\"\n}\n```",
     "metadata": {
-      "request_id": "757dd002-c119-4e83-abb8-848aca22d9ad",
-      "duration_ms": 449,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T04:28:30.642523+00:00",
-    "producer_id": "ef50b296",
-    "level": "ERROR",
-    "service": "database",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"8GB\",\n  \"limit\": \"4GB\"\n}\n```",
-    "metadata": {
-      "request_id": "9c3c4fe4-8e10-4a97-820f-1c1023f9a66c",
-      "duration_ms": 912,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T12:09:30.642585+00:00",
-    "producer_id": "79415815",
-    "level": "DEBUG",
-    "service": "auth",
-    "message": "### Cache Operation\n- Type: `delete`\n- Key: `cache:user:39a413fe`\n- TTL: 1932s",
-    "metadata": {
-      "request_id": "03505792-1a81-4a81-b162-1512f1adb973",
-      "duration_ms": 758,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T21:28:30.642648+00:00",
-    "producer_id": "0949a951",
-    "level": "INFO",
-    "service": "api",
-    "message": "## Deployment Success\nDeployed version `5.3.3` to production\n- \ud83d\ude80 Services updated: api, database\n- \u23f1\ufe0f Duration: 68s",
-    "metadata": {
-      "request_id": "6230a2fb-701b-4a23-b716-899db2bfabab",
-      "duration_ms": 407,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T06:56:30.642716+00:00",
-    "producer_id": "29a7b961",
-    "level": "ERROR",
-    "service": "auth",
-    "message": "### Authentication Failed\n- User: `user_6456`\n- Source IP: `192.168.1.47`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "206c5b93-d4c6-4c07-aef2-6626de40d24c",
-      "duration_ms": 21,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:14:30.642783+00:00",
-    "producer_id": "3278c59a",
-    "level": "ERROR",
-    "service": "database",
-    "message": "### Authentication Failed\n- User: `user_7687`\n- Source IP: `192.168.1.8`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "233fc773-7665-435a-a7ce-5942a525270b",
-      "duration_ms": 281,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T20:41:30.642846+00:00",
-    "producer_id": "fcd14871",
-    "level": "DEBUG",
-    "service": "auth",
-    "message": "### Cache Operation\n- Type: `get`\n- Key: `cache:user:78e782a9`\n- TTL: 443s",
-    "metadata": {
-      "request_id": "d68a8a4c-3edf-40fe-85b3-94e36c6e8444",
-      "duration_ms": 843,
+      "request_id": "9d040d6d-e8e2-40d5-aa93-6e4c0df9325e",
+      "duration_ms": 766,
       "user_agent": "PostmanRuntime/7.29.0"
     }
   },
   {
-    "timestamp": "2025-04-19T02:03:30.642908+00:00",
-    "producer_id": "c8c9b179",
+    "timestamp": "2025-04-20T07:04:10.087325+00:00",
+    "producer_id": "1321d23a",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "## openai Model Call\n- Model: `llama3-70b-instruct`\n- Response time: 4799ms\n- Tokens: 1178\n- Status: rate_limited",
+    "metadata": {
+      "request_id": "c7bbcb2e-1303-41e1-b9f7-78ca0032cbce",
+      "duration_ms": 789,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T19:41:10.087364+00:00",
+    "producer_id": "b23450c1",
     "level": "ERROR",
     "service": "worker",
+    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"5GB\",\n  \"limit\": \"4GB\"\n}\n```",
+    "metadata": {
+      "request_id": "9631bc75-e5e8-407f-9ec0-311a2dff7248",
+      "duration_ms": 804,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T05:32:10.087425+00:00",
+    "producer_id": "3ee95e2c",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# openai Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 553ms |\n| Success Rate | 94% |\n| Cost | $4.31 |",
+    "metadata": {
+      "request_id": "d84d94ee-bb45-4890-9fb2-e68f6ed0429e",
+      "duration_ms": 770,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T17:57:10.087458+00:00",
+    "producer_id": "338df685",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# anthropic Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1810ms |\n| Success Rate | 82% |\n| Cost | $2.59 |",
+    "metadata": {
+      "request_id": "cecfa56c-f691-4b3d-a64f-dfcc0da440b2",
+      "duration_ms": 278,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T02:52:10.087488+00:00",
+    "producer_id": "357f562e",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "# groq Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 2203ms |\n| Success Rate | 73% |\n| Cost | $3.47 |",
+    "metadata": {
+      "request_id": "ac2e117e-23ef-4579-bc1c-eafd0cee08ca",
+      "duration_ms": 209,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T09:26:10.087520+00:00",
+    "producer_id": "07677a85",
+    "level": "INFO",
+    "service": "cache",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 183ms\n- Success Rate: 97%\n- Total Requests: 5664\n```",
+    "metadata": {
+      "request_id": "74b16bf5-5fb8-4469-a47d-8b579fdf811f",
+      "duration_ms": 643,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T09:47:10.087585+00:00",
+    "producer_id": "68cf0367",
+    "level": "INFO",
+    "service": "api",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 172ms\n- Success Rate: 98%\n- Total Requests: 9119\n```",
+    "metadata": {
+      "request_id": "f96c03c3-3efe-4f32-892c-51c3b0ab406a",
+      "duration_ms": 424,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T02:45:10.087647+00:00",
+    "producer_id": "8e3ecad4",
+    "level": "INFO",
+    "service": "cache",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 331ms\n- Success Rate: 95%\n- Total Requests: 8282\n```",
+    "metadata": {
+      "request_id": "38de4892-530b-4312-9209-20808cf0e969",
+      "duration_ms": 273,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T02:39:10.087703+00:00",
+    "producer_id": "ed0db981",
+    "level": "ERROR",
+    "service": "worker",
+    "message": "### Authentication Failed\n- User: `user_9470`\n- Source IP: `192.168.1.36`\n- Reason: Invalid credentials",
+    "metadata": {
+      "request_id": "e10dbd14-765c-496b-b35d-0c0a1b68c436",
+      "duration_ms": 218,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T10:40:10.087761+00:00",
+    "producer_id": "eae58522",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "# openai Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1083ms |\n| Success Rate | 87% |\n| Cost | $3.9 |",
+    "metadata": {
+      "request_id": "e29bf604-00c9-4e3f-a7fd-7abe7df2b991",
+      "duration_ms": 194,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T16:13:10.087792+00:00",
+    "producer_id": "24908e7a",
+    "level": "WARN",
+    "service": "database",
+    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 91% |\n| Miss Rate | 25% |",
+    "metadata": {
+      "request_id": "2d2c7575-44e4-45d2-a7bf-b790e5a82050",
+      "duration_ms": 941,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:16:10.087847+00:00",
+    "producer_id": "5ccc4b28",
+    "level": "INFO",
+    "service": "ai-agent",
+    "message": "## groq Model Call\n- Model: `llama3-70b-instruct`\n- Response time: 4352ms\n- Tokens: 606\n- Status: rate_limited",
+    "metadata": {
+      "request_id": "35888eec-ab02-4de7-ac22-0576999fb35e",
+      "duration_ms": 735,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T00:02:10.087876+00:00",
+    "producer_id": "ce385e49",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "# google Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1213ms |\n| Success Rate | 89% |\n| Cost | $1.0 |",
+    "metadata": {
+      "request_id": "2d53745c-b43e-44ea-9ae0-0727e528e8c2",
+      "duration_ms": 345,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:37:10.087904+00:00",
+    "producer_id": "b278b19c",
+    "level": "INFO",
+    "service": "worker",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 415ms\n- Success Rate: 92%\n- Total Requests: 6541\n```",
+    "metadata": {
+      "request_id": "0657ba96-eb86-4b8e-8c08-2f774882ec01",
+      "duration_ms": 210,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T09:49:10.087960+00:00",
+    "producer_id": "808a619d",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "## anthropic Model Call\n- Model: `gpt-4o`\n- Response time: 4584ms\n- Tokens: 103\n- Status: context_overflow",
+    "metadata": {
+      "request_id": "e2d1e852-d279-4361-b241-a0d957cdd1ce",
+      "duration_ms": 880,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T21:40:10.087988+00:00",
+    "producer_id": "d4159075",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with groq:\n```\nRate limit exceeded\n```\n- Model: `groq-14b`",
+    "metadata": {
+      "request_id": "0601c439-ebd9-44c9-ad3b-bfe38e417ab6",
+      "duration_ms": 311,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T22:58:10.088015+00:00",
+    "producer_id": "1bbd4904",
+    "level": "DEBUG",
+    "service": "database",
+    "message": "### Request Details\n```json\n{\n  \"method\": \"DELETE\",\n  \"path\": \"/api/users/25ab2fca\",\n  \"duration\": \"226ms\"\n}\n```",
+    "metadata": {
+      "request_id": "5f94fdae-b907-41bc-b9ee-b6ea70661fcd",
+      "duration_ms": 366,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T16:36:10.088073+00:00",
+    "producer_id": "4b8fe1ac",
+    "level": "DEBUG",
+    "service": "api",
+    "message": "### Request Details\n```json\n{\n  \"method\": \"DELETE\",\n  \"path\": \"/api/users/d37610ff\",\n  \"duration\": \"283ms\"\n}\n```",
+    "metadata": {
+      "request_id": "1a481233-0e83-496c-abc2-5315f2b6f2b9",
+      "duration_ms": 862,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T09:26:10.088129+00:00",
+    "producer_id": "ad9cf32d",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with mistral:\n```\nRate limit exceeded\n```\n- Model: `llama3-70b-instruct`",
+    "metadata": {
+      "request_id": "c4b4647a-4bf9-4a21-af2d-fcac92785e2e",
+      "duration_ms": 919,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T22:04:10.088158+00:00",
+    "producer_id": "5a0d2226",
+    "level": "ERROR",
+    "service": "auth",
+    "message": "### Authentication Failed\n- User: `user_3526`\n- Source IP: `192.168.1.142`\n- Reason: Invalid credentials",
+    "metadata": {
+      "request_id": "54795bb7-c9e8-4342-9294-ccf646c9bf69",
+      "duration_ms": 855,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T05:37:10.088213+00:00",
+    "producer_id": "490633f4",
+    "level": "INFO",
+    "service": "api",
+    "message": "### New User Registration\n- Username: `user_c4be390b`\n- Email: user_2191@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "557a2b39-c725-4e09-998a-ecf05d3d3790",
+      "duration_ms": 808,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T16:36:10.088270+00:00",
+    "producer_id": "2200d48b",
+    "level": "INFO",
+    "service": "ai-agent",
+    "message": "# groq Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1329ms |\n| Success Rate | 85% |\n| Cost | $2.03 |",
+    "metadata": {
+      "request_id": "034d40a9-8a52-46a2-a679-cf093b9f6a52",
+      "duration_ms": 655,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:05:10.088299+00:00",
+    "producer_id": "cdfed82c",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with anthropic:\n```\nRequest timeout\n```\n- Model: `llama3-70b-instruct`",
+    "metadata": {
+      "request_id": "f4cb9fb9-58a6-4e00-b6ca-59a63617223f",
+      "duration_ms": 539,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:06:10.088327+00:00",
+    "producer_id": "4900c542",
+    "level": "INFO",
+    "service": "cache",
+    "message": "### New User Registration\n- Username: `user_5bfa0e7d`\n- Email: user_6722@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "84bc3c73-8696-45cf-bf94-57b7dafbc6a7",
+      "duration_ms": 622,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T19:38:10.088390+00:00",
+    "producer_id": "7843e605",
+    "level": "INFO",
+    "service": "worker",
+    "message": "## Deployment Success\nDeployed version `1.9.9` to production\n- \ud83d\ude80 Services updated: api, database\n- \u23f1\ufe0f Duration: 180s",
+    "metadata": {
+      "request_id": "6a743f44-5612-4bba-a2e7-893d09343771",
+      "duration_ms": 65,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T11:37:10.088452+00:00",
+    "producer_id": "771a2361",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nAPI key invalid\n```\n- Model: `gemini-pro`",
+    "metadata": {
+      "request_id": "255b19d5-be03-4eab-990c-056d784ccdcb",
+      "duration_ms": 615,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T20:58:10.088480+00:00",
+    "producer_id": "50b0338b",
+    "level": "INFO",
+    "service": "api",
+    "message": "### New User Registration\n- Username: `user_828c9bad`\n- Email: user_6088@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "61a7900c-f4db-42a9-8546-cfa1ec81f744",
+      "duration_ms": 185,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T01:21:10.088536+00:00",
+    "producer_id": "ed428b35",
+    "level": "DEBUG",
+    "service": "cache",
+    "message": "### Cache Operation\n- Type: `set`\n- Key: `cache:user:aecc60b2`\n- TTL: 2910s",
+    "metadata": {
+      "request_id": "c54d80c3-9452-494f-afd6-2d0f2432723d",
+      "duration_ms": 394,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T04:00:10.088592+00:00",
+    "producer_id": "1be4bd79",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "# groq Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 494ms |\n| Success Rate | 93% |\n| Cost | $1.48 |",
+    "metadata": {
+      "request_id": "25cd0efd-7692-4281-adc2-34a8f7493c29",
+      "duration_ms": 746,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:54:10.088621+00:00",
+    "producer_id": "a2a69937",
+    "level": "DEBUG",
+    "service": "api",
+    "message": "### Cache Operation\n- Type: `get`\n- Key: `cache:session:1625f376`\n- TTL: 803s",
+    "metadata": {
+      "request_id": "9a341297-2fe9-451b-8c9e-68f3bfa628d6",
+      "duration_ms": 607,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T10:04:10.088676+00:00",
+    "producer_id": "908eca9c",
+    "level": "INFO",
+    "service": "database",
+    "message": "### New User Registration\n- Username: `user_9a6d9fb9`\n- Email: user_4265@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "a5c533b7-c016-4186-bbcf-8d99794b7040",
+      "duration_ms": 481,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:11:10.088734+00:00",
+    "producer_id": "b8cd0882",
+    "level": "ERROR",
+    "service": "api",
+    "message": "## Database Connection Error\nFailed to connect to database:\n```\nAuthentication failed\n```\nAttempted connection to: `db-3.example.com`",
+    "metadata": {
+      "request_id": "43cfc084-5c8f-4b8f-9574-a54384c8da7c",
+      "duration_ms": 932,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T02:40:10.088792+00:00",
+    "producer_id": "da147f1d",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# anthropic Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 2587ms |\n| Success Rate | 87% |\n| Cost | $4.49 |",
+    "metadata": {
+      "request_id": "9a834970-cb3b-48ba-9024-faf2c1d3f953",
+      "duration_ms": 406,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T20:55:10.088820+00:00",
+    "producer_id": "472f8fe0",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "# mistral Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1261ms |\n| Success Rate | 89% |\n| Cost | $4.98 |",
+    "metadata": {
+      "request_id": "67e480f4-fa81-4e82-b95c-73bf5d758144",
+      "duration_ms": 154,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T21:58:10.088847+00:00",
+    "producer_id": "606e37dd",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "# openai Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 2986ms |\n| Success Rate | 93% |\n| Cost | $4.83 |",
+    "metadata": {
+      "request_id": "f04e9f43-914b-4c68-981d-126a44d5932d",
+      "duration_ms": 530,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T15:08:10.088874+00:00",
+    "producer_id": "e7cfbf5b",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nAPI key invalid\n```\n- Model: `mixtral-8x7b`",
+    "metadata": {
+      "request_id": "4c01c0a2-dc1d-4fb1-8566-a63b8e106afb",
+      "duration_ms": 701,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T02:15:10.088901+00:00",
+    "producer_id": "efe9ff8e",
+    "level": "INFO",
+    "service": "auth",
+    "message": "### New User Registration\n- Username: `user_8c7df31e`\n- Email: user_9881@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "4485f147-331e-48bf-8707-91ec18bda2b0",
+      "duration_ms": 841,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T00:18:10.088956+00:00",
+    "producer_id": "e332891f",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nAPI key invalid\n```\n- Model: `google-large`",
+    "metadata": {
+      "request_id": "c9564ebb-8956-4606-886c-a07dda9fbdf0",
+      "duration_ms": 784,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T06:31:10.088983+00:00",
+    "producer_id": "498fdf54",
+    "level": "ERROR",
+    "service": "database",
     "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"7GB\",\n  \"limit\": \"4GB\"\n}\n```",
     "metadata": {
-      "request_id": "dc1110d9-c732-4581-890e-5633cc15ad76",
-      "duration_ms": 490,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T06:13:30.642978+00:00",
-    "producer_id": "bada990a",
-    "level": "ERROR",
-    "service": "api",
-    "message": "## Database Connection Error\nFailed to connect to database:\n```\nTimeout\n```\nAttempted connection to: `db-2.example.com`",
-    "metadata": {
-      "request_id": "9f530630-2564-4e6a-b87c-7f3d88d59325",
-      "duration_ms": 67,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T09:12:30.643043+00:00",
-    "producer_id": "d068127e",
-    "level": "WARN",
-    "service": "worker",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 80% |\n| Miss Rate | 16% |",
-    "metadata": {
-      "request_id": "59ea082e-d5fd-4ea2-8ead-dbf41eb3947c",
-      "duration_ms": 665,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T06:35:30.643107+00:00",
-    "producer_id": "e2f71836",
-    "level": "INFO",
-    "service": "database",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 472ms\n- Success Rate: 92%\n- Total Requests: 2274\n```",
-    "metadata": {
-      "request_id": "e52413e6-d398-44dd-8b6d-b31ba88fc62c",
-      "duration_ms": 69,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T01:20:30.643173+00:00",
-    "producer_id": "28b64f7d",
-    "level": "WARN",
-    "service": "cache",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 813\n- Limit: 1000\n- Endpoint: `/api/v1/users`",
-    "metadata": {
-      "request_id": "31185674-2da4-46e2-b975-b9488527cf2b",
-      "duration_ms": 293,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:00:30.643238+00:00",
-    "producer_id": "430d6bbe",
-    "level": "ERROR",
-    "service": "cache",
-    "message": "### Authentication Failed\n- User: `user_2784`\n- Source IP: `192.168.1.165`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "a1f891bd-95cc-403f-842a-29c80c7d7d5d",
-      "duration_ms": 200,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:54:30.643300+00:00",
-    "producer_id": "6074fb07",
-    "level": "DEBUG",
-    "service": "api",
-    "message": "### Cache Operation\n- Type: `set`\n- Key: `cache:user:d1324cb4`\n- TTL: 437s",
-    "metadata": {
-      "request_id": "3075bbc3-5616-4fe0-9d6e-253637f3ddbb",
-      "duration_ms": 552,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T22:11:30.643362+00:00",
-    "producer_id": "daacb859",
-    "level": "WARN",
-    "service": "cache",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 91% |\n| Miss Rate | 29% |",
-    "metadata": {
-      "request_id": "724345b1-5a13-48a0-8ef3-af12b4bdcd50",
-      "duration_ms": 765,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T14:26:30.643426+00:00",
-    "producer_id": "b937a3d6",
-    "level": "WARN",
-    "service": "worker",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 76% |\n| Miss Rate | 37% |",
-    "metadata": {
-      "request_id": "7033a697-6c49-4158-a631-2f963eed8702",
-      "duration_ms": 358,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T00:08:30.643489+00:00",
-    "producer_id": "a4a977f9",
-    "level": "WARN",
-    "service": "auth",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 79% |\n| Miss Rate | 11% |",
-    "metadata": {
-      "request_id": "fe2af0d6-7ca8-4551-964a-71ecf1fd3373",
-      "duration_ms": 713,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:38:30.643552+00:00",
-    "producer_id": "d93996be",
-    "level": "INFO",
-    "service": "api",
-    "message": "## Deployment Success\nDeployed version `2.8.6` to production\n- \ud83d\ude80 Services updated: auth, api\n- \u23f1\ufe0f Duration: 180s",
-    "metadata": {
-      "request_id": "0e578e87-aed9-4315-9a3a-29b9c350858a",
-      "duration_ms": 999,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T02:48:30.643615+00:00",
-    "producer_id": "659b15d6",
-    "level": "INFO",
-    "service": "cache",
-    "message": "## Deployment Success\nDeployed version `5.9.5` to production\n- \ud83d\ude80 Services updated: auth\n- \u23f1\ufe0f Duration: 248s",
-    "metadata": {
-      "request_id": "2fcb62c0-e4a0-46be-af4f-715490e5c927",
-      "duration_ms": 797,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T01:40:30.643678+00:00",
-    "producer_id": "abced6d0",
-    "level": "DEBUG",
-    "service": "database",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"POST\",\n  \"path\": \"/api/products/b25de8d5\",\n  \"duration\": \"292ms\"\n}\n```",
-    "metadata": {
-      "request_id": "c9dcd130-e025-4b32-a7a2-ef093baba4ef",
-      "duration_ms": 930,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:42:30.643741+00:00",
-    "producer_id": "d175fd38",
-    "level": "INFO",
-    "service": "api",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 210ms\n- Success Rate: 94%\n- Total Requests: 6576\n```",
-    "metadata": {
-      "request_id": "7d9119db-d039-435a-a00c-8981ca8f5d4a",
-      "duration_ms": 940,
+      "request_id": "790f442c-54ab-4bae-aae3-e1ff1dae915e",
+      "duration_ms": 720,
       "user_agent": "PostmanRuntime/7.29.0"
     }
   },
   {
-    "timestamp": "2025-04-19T02:45:30.643805+00:00",
-    "producer_id": "8c27a816",
+    "timestamp": "2025-04-19T21:32:10.089042+00:00",
+    "producer_id": "61fd78a1",
     "level": "WARN",
     "service": "database",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 835\n- Limit: 1000\n- Endpoint: `/api/v1/orders`",
+    "message": "### High CPU Usage\n- Current: **94%**\n- Threshold: 80%\n- Service: `database`",
     "metadata": {
-      "request_id": "c178ad89-f201-4fdc-98ed-bf8ab8ed1fc0",
-      "duration_ms": 163,
+      "request_id": "124dac24-d5b0-4c4c-9943-4a92d2e99f50",
+      "duration_ms": 588,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T00:22:10.089097+00:00",
+    "producer_id": "ef31adcb",
+    "level": "INFO",
+    "service": "worker",
+    "message": "### New User Registration\n- Username: `user_0f5ede36`\n- Email: user_7153@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "d0da5bab-a380-43c8-9f44-a6d87d5bcab9",
+      "duration_ms": 273,
       "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-18T12:56:30.643870+00:00",
-    "producer_id": "8b56fcfc",
-    "level": "ERROR",
-    "service": "database",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"4GB\",\n  \"limit\": \"4GB\"\n}\n```",
+    "timestamp": "2025-04-20T00:09:10.089154+00:00",
+    "producer_id": "153f0d2d",
+    "level": "DEBUG",
+    "service": "worker",
+    "message": "### Cache Operation\n- Type: `delete`\n- Key: `cache:user:30ba70d8`\n- TTL: 2340s",
     "metadata": {
-      "request_id": "263b8a0f-aeb2-44f2-a2b8-1aa6b16b47df",
-      "duration_ms": 608,
+      "request_id": "5510f468-f193-4110-89ec-17245c48c54e",
+      "duration_ms": 206,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:15:10.089211+00:00",
+    "producer_id": "865a8859",
+    "level": "WARN",
+    "service": "auth",
+    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 80% |\n| Miss Rate | 32% |",
+    "metadata": {
+      "request_id": "099b2ee8-7c36-485c-a339-24ee1daa3969",
+      "duration_ms": 542,
       "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-18T19:17:30.643932+00:00",
-    "producer_id": "890cb417",
+    "timestamp": "2025-04-19T22:43:10.089267+00:00",
+    "producer_id": "3485cd5b",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "# openai Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1899ms |\n| Success Rate | 78% |\n| Cost | $0.13 |",
+    "metadata": {
+      "request_id": "f7c8eef7-05dd-41f2-92b8-3abf8d4f1533",
+      "duration_ms": 560,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T22:00:10.089295+00:00",
+    "producer_id": "43a06744",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "# openai Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 960ms |\n| Success Rate | 82% |\n| Cost | $2.09 |",
+    "metadata": {
+      "request_id": "d8181d7d-cdaa-42a3-8fdc-eed3d16e5f6f",
+      "duration_ms": 457,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T16:57:10.089322+00:00",
+    "producer_id": "dc6a5689",
     "level": "ERROR",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with mistral:\n```\nContext length exceeded\n```\n- Model: `claude-3-opus`",
+    "metadata": {
+      "request_id": "7177bb64-4245-4c26-920f-0fc03640ba87",
+      "duration_ms": 306,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T19:28:10.089356+00:00",
+    "producer_id": "5859a878",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# mistral Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 549ms |\n| Success Rate | 81% |\n| Cost | $1.53 |",
+    "metadata": {
+      "request_id": "ef4886a5-77ed-45e5-84b1-5c754d3468ee",
+      "duration_ms": 173,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T22:28:10.089384+00:00",
+    "producer_id": "412e3b57",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# anthropic Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1407ms |\n| Success Rate | 89% |\n| Cost | $3.15 |",
+    "metadata": {
+      "request_id": "49b09e8c-be0f-4e2b-9a1a-afd56aca00d4",
+      "duration_ms": 695,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T04:55:10.089411+00:00",
+    "producer_id": "33ac6424",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# mistral Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1603ms |\n| Success Rate | 85% |\n| Cost | $0.42 |",
+    "metadata": {
+      "request_id": "6a0b56b1-fb7e-4fde-add0-62c05277a92c",
+      "duration_ms": 636,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T21:30:10.089437+00:00",
+    "producer_id": "7adbabfe",
+    "level": "DEBUG",
     "service": "api",
-    "message": "## Database Connection Error\nFailed to connect to database:\n```\nAuthentication failed\n```\nAttempted connection to: `db-5.example.com`",
+    "message": "## Function Trace\n1. Entry: `process_order`\n2. Args: `id=adfda8d0`\n3. Return: `success`",
     "metadata": {
-      "request_id": "0680e7df-c529-4a61-87f7-fb94a50ee761",
+      "request_id": "370ee5fe-b2ba-49bd-8981-1902d7dbc562",
+      "duration_ms": 111,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T07:06:10.089492+00:00",
+    "producer_id": "6bf2ee74",
+    "level": "WARN",
+    "service": "cache",
+    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 897\n- Limit: 1000\n- Endpoint: `/api/v1/products`",
+    "metadata": {
+      "request_id": "8bb4af99-cc33-4803-ad1b-f817bb2aa20c",
+      "duration_ms": 984,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T03:14:10.089547+00:00",
+    "producer_id": "6730b08f",
+    "level": "INFO",
+    "service": "database",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 244ms\n- Success Rate: 94%\n- Total Requests: 6989\n```",
+    "metadata": {
+      "request_id": "cd396802-8392-4d2f-a666-b6de3369b39a",
+      "duration_ms": 313,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T23:09:10.089601+00:00",
+    "producer_id": "582d0a57",
+    "level": "INFO",
+    "service": "cache",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 415ms\n- Success Rate: 90%\n- Total Requests: 2731\n```",
+    "metadata": {
+      "request_id": "463e4d62-0d87-4d77-a196-55461dc6c956",
+      "duration_ms": 557,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T16:43:10.089655+00:00",
+    "producer_id": "8bc65fbf",
+    "level": "INFO",
+    "service": "database",
+    "message": "### New User Registration\n- Username: `user_58bb4cc3`\n- Email: user_9793@example.com\n- Status: \u2705 Verified",
+    "metadata": {
+      "request_id": "bf6207e5-9fbe-4252-8f6f-0ae7e920cd19",
+      "duration_ms": 674,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T03:11:10.089709+00:00",
+    "producer_id": "11539ea1",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "## anthropic Model Call\n- Model: `anthropic-large`\n- Response time: 2891ms\n- Tokens: 1025\n- Status: timeout",
+    "metadata": {
+      "request_id": "42ca03a7-8bd8-437d-b6a7-1aba6d084eea",
+      "duration_ms": 566,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T05:18:10.089737+00:00",
+    "producer_id": "6a3d403a",
+    "level": "ERROR",
+    "service": "worker",
+    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"8GB\",\n  \"limit\": \"4GB\"\n}\n```",
+    "metadata": {
+      "request_id": "1a482dbb-cc95-4603-88cc-8f2855eafa40",
       "duration_ms": 993,
       "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-18T13:40:30.644002+00:00",
-    "producer_id": "388dc415",
-    "level": "WARN",
-    "service": "auth",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 887\n- Limit: 1000\n- Endpoint: `/api/v1/orders`",
+    "timestamp": "2025-04-20T05:35:10.089797+00:00",
+    "producer_id": "3e54628c",
+    "level": "INFO",
+    "service": "ai-agent",
+    "message": "## groq Model Call\n- Model: `gpt-4o`\n- Response time: 936ms\n- Tokens: 320\n- Status: context_overflow",
     "metadata": {
-      "request_id": "661730aa-e8a6-496e-8b1b-89dcd91d8743",
-      "duration_ms": 90,
-      "user_agent": "PostmanRuntime/7.29.0"
+      "request_id": "0ea4c479-df84-48fb-b260-dd9eed4ed636",
+      "duration_ms": 178,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-19T04:10:30.644067+00:00",
-    "producer_id": "90dfa68f",
-    "level": "WARN",
-    "service": "worker",
-    "message": "### Cache Performance\n| Metric | Value |\n|--------|-------|\n| Hit Rate | 73% |\n| Miss Rate | 37% |",
-    "metadata": {
-      "request_id": "1fb726f0-2a45-4e75-a0bd-d1a68db0f910",
-      "duration_ms": 39,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T12:45:30.644130+00:00",
-    "producer_id": "21f79b15",
-    "level": "WARN",
-    "service": "api",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 852\n- Limit: 1000\n- Endpoint: `/api/v1/orders`",
-    "metadata": {
-      "request_id": "8997f4a0-2035-409a-bf4c-c60fccb9d569",
-      "duration_ms": 486,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T18:24:30.644195+00:00",
-    "producer_id": "e996e0bb",
-    "level": "DEBUG",
-    "service": "cache",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"GET\",\n  \"path\": \"/api/users/347a70f1\",\n  \"duration\": \"84ms\"\n}\n```",
-    "metadata": {
-      "request_id": "57552abe-e221-4d21-a428-ec50d4fc2448",
-      "duration_ms": 942,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T18:15:30.644257+00:00",
-    "producer_id": "5b2a861c",
-    "level": "WARN",
+    "timestamp": "2025-04-20T08:56:10.089826+00:00",
+    "producer_id": "0ff9d9c2",
+    "level": "INFO",
     "service": "database",
-    "message": "### High CPU Usage\n- Current: **97%**\n- Threshold: 80%\n- Service: `database`",
+    "message": "### API Performance Report\n```markdown\n- Response Time: 322ms\n- Success Rate: 91%\n- Total Requests: 4681\n```",
     "metadata": {
-      "request_id": "9f0ab86a-8006-456d-90c7-e69fd6ce112f",
-      "duration_ms": 168,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+      "request_id": "5ef0fd4c-a3fe-4114-9019-dad1e35d0e9f",
+      "duration_ms": 576,
+      "user_agent": "PostmanRuntime/7.29.0"
     }
   },
   {
-    "timestamp": "2025-04-18T12:56:30.644320+00:00",
-    "producer_id": "7dcf15d8",
+    "timestamp": "2025-04-19T15:31:10.089882+00:00",
+    "producer_id": "edc82c6d",
     "level": "ERROR",
-    "service": "api",
+    "service": "worker",
     "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"6GB\",\n  \"limit\": \"4GB\"\n}\n```",
     "metadata": {
-      "request_id": "267e3483-a688-4222-8a7d-9a420af1e274",
-      "duration_ms": 833,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:46:30.644383+00:00",
-    "producer_id": "c5ff761a",
-    "level": "DEBUG",
-    "service": "cache",
-    "message": "### Cache Operation\n- Type: `get`\n- Key: `cache:user:79f04356`\n- TTL: 2836s",
-    "metadata": {
-      "request_id": "93612980-bbcd-455c-ab58-2437a4d8f928",
-      "duration_ms": 9,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T12:50:30.644445+00:00",
-    "producer_id": "9a73bb58",
-    "level": "WARN",
-    "service": "cache",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 948\n- Limit: 1000\n- Endpoint: `/api/v1/orders`",
-    "metadata": {
-      "request_id": "fe8f25dc-a997-40a4-bab8-1a743de2a0f5",
-      "duration_ms": 451,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:13:30.644508+00:00",
-    "producer_id": "96c62212",
-    "level": "INFO",
-    "service": "database",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 70ms\n- Success Rate: 98%\n- Total Requests: 5975\n```",
-    "metadata": {
-      "request_id": "686c0138-7c52-43c6-881a-20ae5fb49a5c",
-      "duration_ms": 675,
+      "request_id": "734536b9-23cc-40fe-9487-7a5db2e36a54",
+      "duration_ms": 616,
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
   },
   {
-    "timestamp": "2025-04-19T06:47:30.644571+00:00",
-    "producer_id": "a2787db8",
-    "level": "INFO",
-    "service": "cache",
-    "message": "### New User Registration\n- Username: `user_405f7b9d`\n- Email: user_9776@example.com\n- Status: \u2705 Verified",
-    "metadata": {
-      "request_id": "a64c3441-4d8e-4b66-948a-bae1c64584d9",
-      "duration_ms": 42,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T02:14:30.644636+00:00",
-    "producer_id": "a3e6c8be",
-    "level": "ERROR",
-    "service": "api",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"7GB\",\n  \"limit\": \"4GB\"\n}\n```",
-    "metadata": {
-      "request_id": "6b544881-1064-4da5-8fa5-8a161603c0b5",
-      "duration_ms": 940,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T13:22:30.644698+00:00",
-    "producer_id": "4e381c32",
-    "level": "WARN",
-    "service": "api",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 854\n- Limit: 1000\n- Endpoint: `/api/v1/users`",
-    "metadata": {
-      "request_id": "1864c6d2-85ab-4db4-b757-3eff999dcd79",
-      "duration_ms": 118,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T10:07:30.644760+00:00",
-    "producer_id": "792d0d71",
-    "level": "INFO",
-    "service": "auth",
-    "message": "### New User Registration\n- Username: `user_bf51105c`\n- Email: user_9197@example.com\n- Status: \u2705 Verified",
-    "metadata": {
-      "request_id": "9b5925d2-9663-428f-a931-7ac244c0ed67",
-      "duration_ms": 140,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T20:29:30.644822+00:00",
-    "producer_id": "3ca01c9b",
+    "timestamp": "2025-04-20T06:34:10.089937+00:00",
+    "producer_id": "0cdce40b",
     "level": "ERROR",
     "service": "database",
-    "message": "## Database Connection Error\nFailed to connect to database:\n```\nAuthentication failed\n```\nAttempted connection to: `db-3.example.com`",
-    "metadata": {
-      "request_id": "7f2e7f5f-d82b-48a2-acd6-c4faea6b51a2",
-      "duration_ms": 727,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T05:34:30.644884+00:00",
-    "producer_id": "c3b80d5a",
-    "level": "DEBUG",
-    "service": "worker",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"PUT\",\n  \"path\": \"/api/users/ab115b1d\",\n  \"duration\": \"86ms\"\n}\n```",
-    "metadata": {
-      "request_id": "3f2b6b14-c074-4d03-af24-abb26acc38ff",
-      "duration_ms": 337,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T20:52:30.644953+00:00",
-    "producer_id": "d16c001a",
-    "level": "DEBUG",
-    "service": "cache",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"GET\",\n  \"path\": \"/api/products/f936ca25\",\n  \"duration\": \"167ms\"\n}\n```",
-    "metadata": {
-      "request_id": "88b24e30-face-47b8-9675-b74d519c4e41",
-      "duration_ms": 221,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:37:30.645018+00:00",
-    "producer_id": "aea86cb8",
-    "level": "INFO",
-    "service": "worker",
-    "message": "### New User Registration\n- Username: `user_9711c5e1`\n- Email: user_9740@example.com\n- Status: \u2705 Verified",
-    "metadata": {
-      "request_id": "dd7aa0ec-7c61-43f4-9d50-aff40b970ce1",
-      "duration_ms": 244,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T14:03:30.645088+00:00",
-    "producer_id": "6b598b3e",
-    "level": "ERROR",
-    "service": "cache",
     "message": "## Database Connection Error\nFailed to connect to database:\n```\nTimeout\n```\nAttempted connection to: `db-5.example.com`",
     "metadata": {
-      "request_id": "6021acfd-68d9-4cd5-a65f-1a93d6d6aea9",
-      "duration_ms": 243,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T12:29:30.645153+00:00",
-    "producer_id": "62350c79",
-    "level": "ERROR",
-    "service": "database",
-    "message": "### Authentication Failed\n- User: `user_6918`\n- Source IP: `192.168.1.200`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "44fb5a26-626c-4246-b1da-bb5a1d1d2bc3",
-      "duration_ms": 310,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T16:05:30.645218+00:00",
-    "producer_id": "4ef3aec9",
-    "level": "DEBUG",
-    "service": "cache",
-    "message": "## Function Trace\n1. Entry: `process_payment`\n2. Args: `id=4e3e55ea`\n3. Return: `cached`",
-    "metadata": {
-      "request_id": "3c6de740-b371-4233-afe4-56d91aba1c84",
-      "duration_ms": 432,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:57:30.645284+00:00",
-    "producer_id": "db6ae8f5",
-    "level": "DEBUG",
-    "service": "api",
-    "message": "## Function Trace\n1. Entry: `process_user`\n2. Args: `id=aa66ac4b`\n3. Return: `success`",
-    "metadata": {
-      "request_id": "65d98d23-8157-4a72-b466-88e08bea7e5a",
-      "duration_ms": 55,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:17:30.645348+00:00",
-    "producer_id": "2991054e",
-    "level": "WARN",
-    "service": "auth",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 816\n- Limit: 1000\n- Endpoint: `/api/v1/users`",
-    "metadata": {
-      "request_id": "499fd1bd-ff3f-438e-a8e9-feded4e36600",
-      "duration_ms": 658,
+      "request_id": "7fbd5996-5d2e-42aa-a351-e0ba5ae1a345",
+      "duration_ms": 290,
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
   },
   {
-    "timestamp": "2025-04-18T20:00:30.645410+00:00",
-    "producer_id": "bcdd4f26",
+    "timestamp": "2025-04-19T17:52:10.089990+00:00",
+    "producer_id": "a8b6580d",
     "level": "WARN",
-    "service": "database",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 910\n- Limit: 1000\n- Endpoint: `/api/v1/products`",
-    "metadata": {
-      "request_id": "81a02928-2a0d-48b6-8166-1c1cf3d7818b",
-      "duration_ms": 809,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T04:03:30.645474+00:00",
-    "producer_id": "313970f7",
-    "level": "INFO",
-    "service": "worker",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 413ms\n- Success Rate: 91%\n- Total Requests: 3490\n```",
-    "metadata": {
-      "request_id": "533a23fc-c11d-4d95-9ffe-67130931b3be",
-      "duration_ms": 910,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T22:22:30.645537+00:00",
-    "producer_id": "65d2f5c1",
-    "level": "DEBUG",
     "service": "cache",
-    "message": "### Cache Operation\n- Type: `set`\n- Key: `cache:data:2caec65f`\n- TTL: 2516s",
+    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 854\n- Limit: 1000\n- Endpoint: `/api/v1/users`",
     "metadata": {
-      "request_id": "bdb52ee1-a594-4189-9a88-87a75feb05bf",
-      "duration_ms": 649,
-      "user_agent": "PostmanRuntime/7.29.0"
+      "request_id": "9737cea2-db33-468f-8ff6-6b47dad9a445",
+      "duration_ms": 291,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
   },
   {
-    "timestamp": "2025-04-18T19:09:30.645598+00:00",
-    "producer_id": "ead5362d",
-    "level": "INFO",
-    "service": "worker",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 407ms\n- Success Rate: 94%\n- Total Requests: 5349\n```",
+    "timestamp": "2025-04-19T17:12:10.090044+00:00",
+    "producer_id": "5f121be5",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "## mistral Model Call\n- Model: `llama3-70b-instruct`\n- Response time: 2401ms\n- Tokens: 1875\n- Status: success",
     "metadata": {
-      "request_id": "fb73f90b-40d7-45b3-8580-5931f7675f78",
-      "duration_ms": 473,
+      "request_id": "6d66997d-8e55-4761-8ff8-c82ac75f94ee",
+      "duration_ms": 592,
       "user_agent": "curl/7.68.0"
     }
   },
   {
-    "timestamp": "2025-04-18T20:11:30.645661+00:00",
-    "producer_id": "c2b9e12a",
+    "timestamp": "2025-04-19T20:19:10.090072+00:00",
+    "producer_id": "79047bd0",
     "level": "ERROR",
-    "service": "database",
+    "service": "cache",
     "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"6GB\",\n  \"limit\": \"4GB\"\n}\n```",
     "metadata": {
-      "request_id": "09d41735-6e1e-42c9-b08f-a88eed4d9750",
-      "duration_ms": 582,
+      "request_id": "00ecfa86-2a69-46af-abf2-2addb069b992",
+      "duration_ms": 31,
       "user_agent": "PostmanRuntime/7.29.0"
     }
   },
   {
-    "timestamp": "2025-04-18T14:57:30.645723+00:00",
-    "producer_id": "c686ac33",
-    "level": "DEBUG",
-    "service": "auth",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"POST\",\n  \"path\": \"/api/products/5087b3e4\",\n  \"duration\": \"150ms\"\n}\n```",
-    "metadata": {
-      "request_id": "9fa4175e-4edf-42ae-b59d-28fb0b2ecb6c",
-      "duration_ms": 52,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T13:50:30.645789+00:00",
-    "producer_id": "1b86ce59",
+    "timestamp": "2025-04-19T16:57:10.090126+00:00",
+    "producer_id": "47286a6a",
     "level": "ERROR",
     "service": "cache",
-    "message": "### Authentication Failed\n- User: `user_7334`\n- Source IP: `192.168.1.209`\n- Reason: Invalid credentials",
+    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"8GB\",\n  \"limit\": \"4GB\"\n}\n```",
     "metadata": {
-      "request_id": "b9a22814-29b8-49d2-b51e-2639a657ed28",
-      "duration_ms": 622,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T17:41:30.645851+00:00",
-    "producer_id": "847f64d0",
-    "level": "DEBUG",
-    "service": "cache",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"GET\",\n  \"path\": \"/api/products/b9d18f1e\",\n  \"duration\": \"122ms\"\n}\n```",
-    "metadata": {
-      "request_id": "40405eab-dad6-4269-b33d-9344650c8c79",
-      "duration_ms": 46,
+      "request_id": "8c610261-cdaf-4079-ae95-9180613c1097",
+      "duration_ms": 552,
       "user_agent": "curl/7.68.0"
     }
   },
   {
-    "timestamp": "2025-04-19T11:36:30.645914+00:00",
-    "producer_id": "39df01ba",
+    "timestamp": "2025-04-20T09:17:10.090180+00:00",
+    "producer_id": "0f4c0794",
+    "level": "ERROR",
+    "service": "database",
+    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"7GB\",\n  \"limit\": \"4GB\"\n}\n```",
+    "metadata": {
+      "request_id": "65da03a0-5e43-4dfa-a601-c584538e352c",
+      "duration_ms": 204,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T13:11:10.090233+00:00",
+    "producer_id": "741dc507",
     "level": "WARN",
-    "service": "auth",
-    "message": "### High CPU Usage\n- Current: **96%**\n- Threshold: 80%\n- Service: `auth`",
+    "service": "database",
+    "message": "### High CPU Usage\n- Current: **84%**\n- Threshold: 80%\n- Service: `database`",
     "metadata": {
-      "request_id": "c794ae5f-8e3a-408c-8a7c-929fd9d3eb0d",
-      "duration_ms": 377,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+      "request_id": "c3c5db75-038b-47df-bd1f-660b7406886f",
+      "duration_ms": 609,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-18T13:20:30.645981+00:00",
-    "producer_id": "a06f1c32",
-    "level": "DEBUG",
-    "service": "worker",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"DELETE\",\n  \"path\": \"/api/products/0b72846b\",\n  \"duration\": \"55ms\"\n}\n```",
-    "metadata": {
-      "request_id": "b1df35fc-1fcf-4163-9f73-58df254d1fef",
-      "duration_ms": 613,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T02:06:30.646048+00:00",
-    "producer_id": "485100b2",
+    "timestamp": "2025-04-20T05:42:10.090284+00:00",
+    "producer_id": "3ca02fdd",
     "level": "WARN",
-    "service": "cache",
-    "message": "### High CPU Usage\n- Current: **84%**\n- Threshold: 80%\n- Service: `cache`",
+    "service": "api",
+    "message": "### High CPU Usage\n- Current: **84%**\n- Threshold: 80%\n- Service: `api`",
     "metadata": {
-      "request_id": "e20f974a-7467-4909-aa95-12fb6e05ab65",
-      "duration_ms": 875,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+      "request_id": "0b36b5ff-574b-4501-9196-7fe160fa076b",
+      "duration_ms": 606,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
     }
   },
   {
-    "timestamp": "2025-04-19T02:23:30.646111+00:00",
-    "producer_id": "de135548",
+    "timestamp": "2025-04-19T12:52:10.090337+00:00",
+    "producer_id": "7cf91414",
     "level": "ERROR",
     "service": "worker",
+    "message": "## Database Connection Error\nFailed to connect to database:\n```\nAuthentication failed\n```\nAttempted connection to: `db-3.example.com`",
+    "metadata": {
+      "request_id": "9d13fdac-befe-46a0-aff5-c0e20c8ab27e",
+      "duration_ms": 959,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T13:24:10.090399+00:00",
+    "producer_id": "21a31eba",
+    "level": "ERROR",
+    "service": "cache",
+    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"7GB\",\n  \"limit\": \"4GB\"\n}\n```",
+    "metadata": {
+      "request_id": "5a7bc457-95f5-471b-9e8b-86d949d71790",
+      "duration_ms": 324,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T07:58:10.090453+00:00",
+    "producer_id": "e0581649",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nRequest timeout\n```\n- Model: `mixtral-8x7b`",
+    "metadata": {
+      "request_id": "82374dc0-c564-4c4f-a103-ac092f198e72",
+      "duration_ms": 137,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:47:10.090481+00:00",
+    "producer_id": "0a774b29",
+    "level": "DEBUG",
+    "service": "database",
+    "message": "### Cache Operation\n- Type: `set`\n- Key: `cache:user:a4b6f9af`\n- TTL: 2136s",
+    "metadata": {
+      "request_id": "9ed58157-a86a-4c1e-a6b5-bfada2442217",
+      "duration_ms": 931,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:11:10.090538+00:00",
+    "producer_id": "0aa44ee3",
+    "level": "ERROR",
+    "service": "api",
     "message": "## Database Connection Error\nFailed to connect to database:\n```\nAuthentication failed\n```\nAttempted connection to: `db-2.example.com`",
     "metadata": {
-      "request_id": "efa110db-619f-4202-af6d-813d72f8e591",
-      "duration_ms": 976,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T18:02:30.646173+00:00",
-    "producer_id": "c9293360",
-    "level": "ERROR",
-    "service": "cache",
-    "message": "### Authentication Failed\n- User: `user_1994`\n- Source IP: `192.168.1.162`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "8d4fd251-3865-49ff-aff6-40531d8e0507",
-      "duration_ms": 195,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T20:20:30.646234+00:00",
-    "producer_id": "c05f0816",
-    "level": "INFO",
-    "service": "worker",
-    "message": "## Deployment Success\nDeployed version `5.9.7` to production\n- \ud83d\ude80 Services updated: api\n- \u23f1\ufe0f Duration: 223s",
-    "metadata": {
-      "request_id": "90054e38-8560-4e18-a350-62853008d19d",
-      "duration_ms": 943,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T08:51:30.646298+00:00",
-    "producer_id": "88f4923d",
-    "level": "DEBUG",
-    "service": "api",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"PUT\",\n  \"path\": \"/api/orders/dc68ceeb\",\n  \"duration\": \"23ms\"\n}\n```",
-    "metadata": {
-      "request_id": "86fea455-4ec0-4fca-9ba8-dba4e71e79d4",
-      "duration_ms": 220,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T19:25:30.646364+00:00",
-    "producer_id": "a014f13c",
-    "level": "ERROR",
-    "service": "auth",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"4GB\",\n  \"limit\": \"4GB\"\n}\n```",
-    "metadata": {
-      "request_id": "54abac1b-c23e-4854-976c-4beae5121e2a",
-      "duration_ms": 458,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T21:29:30.646425+00:00",
-    "producer_id": "b40042f6",
-    "level": "ERROR",
-    "service": "database",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"4GB\",\n  \"limit\": \"4GB\"\n}\n```",
-    "metadata": {
-      "request_id": "615f62cc-0575-4617-8b6f-cda3352bd154",
-      "duration_ms": 442,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T00:25:30.646488+00:00",
-    "producer_id": "20da6e59",
-    "level": "ERROR",
-    "service": "cache",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"5GB\",\n  \"limit\": \"4GB\"\n}\n```",
-    "metadata": {
-      "request_id": "d3246b72-f661-45fe-ad4d-10e5256340db",
-      "duration_ms": 924,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T18:05:30.646549+00:00",
-    "producer_id": "2f47f3e6",
-    "level": "INFO",
-    "service": "api",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 469ms\n- Success Rate: 92%\n- Total Requests: 4596\n```",
-    "metadata": {
-      "request_id": "ca952c62-017f-4130-9180-c8e118091b71",
-      "duration_ms": 233,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T23:47:30.646613+00:00",
-    "producer_id": "67185e91",
-    "level": "WARN",
-    "service": "api",
-    "message": "### High CPU Usage\n- Current: **92%**\n- Threshold: 80%\n- Service: `api`",
-    "metadata": {
-      "request_id": "f4a317fe-cdc8-43ca-a566-6d30c02e016f",
-      "duration_ms": 692,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T17:57:30.646676+00:00",
-    "producer_id": "a50d8245",
-    "level": "ERROR",
-    "service": "worker",
-    "message": "# Critical System Error\n> Memory usage exceeded threshold\n\n```json\n{\n  \"usage\": \"6GB\",\n  \"limit\": \"4GB\"\n}\n```",
-    "metadata": {
-      "request_id": "ee9cb9d1-6554-4a7a-ba9c-49764bf23707",
-      "duration_ms": 217,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T05:01:30.646738+00:00",
-    "producer_id": "5cdee5b0",
-    "level": "INFO",
-    "service": "cache",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 326ms\n- Success Rate: 98%\n- Total Requests: 6871\n```",
-    "metadata": {
-      "request_id": "5bd17623-499e-4533-b39f-77c34c3fdb41",
-      "duration_ms": 385,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T11:32:30.646801+00:00",
-    "producer_id": "c2ea8ff5",
-    "level": "INFO",
-    "service": "worker",
-    "message": "## Deployment Success\nDeployed version `4.9.3` to production\n- \ud83d\ude80 Services updated: database, api\n- \u23f1\ufe0f Duration: 239s",
-    "metadata": {
-      "request_id": "e47beef9-bb31-4598-a1cd-e3662e9cc040",
-      "duration_ms": 31,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T16:32:30.646866+00:00",
-    "producer_id": "69db328f",
-    "level": "ERROR",
-    "service": "database",
-    "message": "## Database Connection Error\nFailed to connect to database:\n```\nConnection refused\n```\nAttempted connection to: `db-1.example.com`",
-    "metadata": {
-      "request_id": "5ff7d147-e2be-45d4-8f77-05251b72acae",
-      "duration_ms": 669,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:59:30.646928+00:00",
-    "producer_id": "95b38109",
-    "level": "INFO",
-    "service": "worker",
-    "message": "### New User Registration\n- Username: `user_ffcc36ad`\n- Email: user_6882@example.com\n- Status: \u2705 Verified",
-    "metadata": {
-      "request_id": "5ef8140a-8ed4-4a83-915c-4086cd70bc43",
-      "duration_ms": 103,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T12:58:30.646997+00:00",
-    "producer_id": "9500790f",
-    "level": "WARN",
-    "service": "auth",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 821\n- Limit: 1000\n- Endpoint: `/api/v1/products`",
-    "metadata": {
-      "request_id": "97571194-897a-402c-821d-bbf94a2bc97d",
-      "duration_ms": 141,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T15:31:30.647062+00:00",
-    "producer_id": "aee5c409",
-    "level": "DEBUG",
-    "service": "cache",
-    "message": "### Request Details\n```json\n{\n  \"method\": \"DELETE\",\n  \"path\": \"/api/orders/bb4354be\",\n  \"duration\": \"275ms\"\n}\n```",
-    "metadata": {
-      "request_id": "65985422-12e9-40f2-b372-6d8c430dcd9a",
-      "duration_ms": 155,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T01:10:30.647129+00:00",
-    "producer_id": "cfe06834",
-    "level": "WARN",
-    "service": "database",
-    "message": "### High CPU Usage\n- Current: **91%**\n- Threshold: 80%\n- Service: `database`",
-    "metadata": {
-      "request_id": "68324e8a-e059-4189-85e7-d2ae45e1788d",
-      "duration_ms": 31,
-      "user_agent": "curl/7.68.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T20:20:30.647190+00:00",
-    "producer_id": "a3d97910",
-    "level": "INFO",
-    "service": "database",
-    "message": "### API Performance Report\n```markdown\n- Response Time: 229ms\n- Success Rate: 94%\n- Total Requests: 8011\n```",
-    "metadata": {
-      "request_id": "2998371f-a4bf-45a9-ab5a-e1b2e5cec836",
-      "duration_ms": 935,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T04:57:30.647252+00:00",
-    "producer_id": "35d2ee56",
-    "level": "WARN",
-    "service": "auth",
-    "message": "## Rate Limit Warning\nAPI requests approaching limit:\n- Current: 849\n- Limit: 1000\n- Endpoint: `/api/v1/users`",
-    "metadata": {
-      "request_id": "9f088c65-4d5d-4e24-89c0-c9f35a7dc7a2",
-      "duration_ms": 705,
+      "request_id": "214d4ae0-de01-4edb-bcd3-f077124e7abd",
+      "duration_ms": 675,
       "user_agent": "PostmanRuntime/7.29.0"
     }
   },
   {
-    "timestamp": "2025-04-19T11:06:30.647316+00:00",
-    "producer_id": "fc0105f2",
+    "timestamp": "2025-04-19T21:52:10.090592+00:00",
+    "producer_id": "e27e7a37",
     "level": "INFO",
-    "service": "auth",
-    "message": "## Deployment Success\nDeployed version `5.7.8` to production\n- \ud83d\ude80 Services updated: cache, auth\n- \u23f1\ufe0f Duration: 95s",
+    "service": "cache",
+    "message": "## Deployment Success\nDeployed version `4.7.4` to production\n- \ud83d\ude80 Services updated: auth, cache, worker\n- \u23f1\ufe0f Duration: 20s",
     "metadata": {
-      "request_id": "ae3fabfa-ca4f-473f-b7d1-741756242a84",
+      "request_id": "d5cd589f-aa5c-4d9f-b0dd-4ed633f2ca21",
+      "duration_ms": 168,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T03:41:10.090649+00:00",
+    "producer_id": "785f78f4",
+    "level": "INFO",
+    "service": "ai-agent",
+    "message": "## google Model Call\n- Model: `google-large`\n- Response time: 3342ms\n- Tokens: 942\n- Status: rate_limited",
+    "metadata": {
+      "request_id": "1bff6789-ca2c-444f-9f24-225dd636764f",
+      "duration_ms": 23,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T04:25:10.090676+00:00",
+    "producer_id": "b5d82c85",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nAPI key invalid\n```\n- Model: `google-large`",
+    "metadata": {
+      "request_id": "c4e17367-1951-4a7a-b240-e859b040214a",
+      "duration_ms": 610,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T21:50:10.090705+00:00",
+    "producer_id": "118f283f",
+    "level": "INFO",
+    "service": "ai-agent",
+    "message": "## google Model Call\n- Model: `mixtral-8x7b`\n- Response time: 1343ms\n- Tokens: 1846\n- Status: context_overflow",
+    "metadata": {
+      "request_id": "e3029a95-04d7-4956-b284-9f3d81d807e7",
+      "duration_ms": 609,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T02:23:10.090731+00:00",
+    "producer_id": "7061d7e3",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "# groq Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 1957ms |\n| Success Rate | 81% |\n| Cost | $2.73 |",
+    "metadata": {
+      "request_id": "42d25663-125d-4945-a196-3b0af8364dce",
+      "duration_ms": 74,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T18:23:10.090758+00:00",
+    "producer_id": "d6d77af4",
+    "level": "DEBUG",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with groq:\n```\nRequest timeout\n```\n- Model: `gpt-4o`",
+    "metadata": {
+      "request_id": "d471b6b7-db7c-4cc3-b5ce-1488cc201883",
+      "duration_ms": 11,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T08:55:10.090784+00:00",
+    "producer_id": "e36f566a",
+    "level": "DEBUG",
+    "service": "database",
+    "message": "## Function Trace\n1. Entry: `process_user`\n2. Args: `id=3a87ffe5`\n3. Return: `cached`",
+    "metadata": {
+      "request_id": "707cbec9-b91d-4a72-9342-ee08346256df",
+      "duration_ms": 952,
+      "user_agent": "curl/7.68.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T14:45:10.090838+00:00",
+    "producer_id": "9103c988",
+    "level": "DEBUG",
+    "service": "api",
+    "message": "## Function Trace\n1. Entry: `process_user`\n2. Args: `id=b0e54061`\n3. Return: `success`",
+    "metadata": {
+      "request_id": "92e162c0-eeb6-495d-b4d2-ec814e63f5ea",
+      "duration_ms": 190,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-20T03:27:10.090892+00:00",
+    "producer_id": "5a14d395",
+    "level": "ERROR",
+    "service": "auth",
+    "message": "### Authentication Failed\n- User: `user_1273`\n- Source IP: `192.168.1.70`\n- Reason: Invalid credentials",
+    "metadata": {
+      "request_id": "40e533cc-056e-4684-8bc0-a35ab70367d5",
+      "duration_ms": 336,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T17:18:10.090946+00:00",
+    "producer_id": "3c1c57c4",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "# anthropic Performance Report\n| Metric | Value |\n|--------|-------|\n| Avg Response Time | 716ms |\n| Success Rate | 79% |\n| Cost | $0.09 |",
+    "metadata": {
+      "request_id": "754c9610-b955-4dd7-ad59-f3912bef6c07",
+      "duration_ms": 6,
+      "user_agent": "PostmanRuntime/7.29.0"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T12:28:10.090976+00:00",
+    "producer_id": "59e7aaa9",
+    "level": "INFO",
+    "service": "worker",
+    "message": "## Deployment Success\nDeployed version `4.8.7` to production\n- \ud83d\ude80 Services updated: auth, worker, database\n- \u23f1\ufe0f Duration: 232s",
+    "metadata": {
+      "request_id": "72d6a726-f1a6-4faa-93a9-424348e960c5",
+      "duration_ms": 803,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T17:52:10.091032+00:00",
+    "producer_id": "2788c48a",
+    "level": "WARN",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with openai:\n```\nRate limit exceeded\n```\n- Model: `openai-7b`",
+    "metadata": {
+      "request_id": "bb3af858-a3ce-4f17-9865-5a8b6a7b2768",
+      "duration_ms": 286,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+  },
+  {
+    "timestamp": "2025-04-19T13:05:10.091059+00:00",
+    "producer_id": "23b69728",
+    "level": "ERROR",
+    "service": "ai-agent",
+    "message": "### AI Integration Error\nFailed to generate response with google:\n```\nAPI key invalid\n```\n- Model: `gemini-pro`",
+    "metadata": {
+      "request_id": "3c1e2ab5-2763-4d44-a03d-c25ffa56316f",
       "duration_ms": 305,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T03:39:30.647379+00:00",
-    "producer_id": "88cf7b37",
-    "level": "DEBUG",
-    "service": "api",
-    "message": "## Function Trace\n1. Entry: `process_user`\n2. Args: `id=aa0b4540`\n3. Return: `success`",
-    "metadata": {
-      "request_id": "051c0495-90ee-433a-a772-834f7c88e2de",
-      "duration_ms": 229,
-      "user_agent": "PostmanRuntime/7.29.0"
-    }
-  },
-  {
-    "timestamp": "2025-04-18T20:42:30.647443+00:00",
-    "producer_id": "747618f1",
-    "level": "ERROR",
-    "service": "database",
-    "message": "### Authentication Failed\n- User: `user_9692`\n- Source IP: `192.168.1.114`\n- Reason: Invalid credentials",
-    "metadata": {
-      "request_id": "9ee583e4-45e0-4e6b-8ea2-f84072df2db7",
-      "duration_ms": 739,
-      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-    }
-  },
-  {
-    "timestamp": "2025-04-19T05:06:30.647506+00:00",
-    "producer_id": "3b6210c5",
-    "level": "DEBUG",
-    "service": "worker",
-    "message": "## Function Trace\n1. Entry: `process_user`\n2. Args: `id=81c44b43`\n3. Return: `partial`",
-    "metadata": {
-      "request_id": "68a89342-8159-4994-837c-babc17a77bb8",
-      "duration_ms": 96,
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+      "user_agent": "curl/7.68.0"
     }
   }
 ]

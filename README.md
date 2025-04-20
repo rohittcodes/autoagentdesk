@@ -22,11 +22,11 @@ AutoAgentDesk is an AI agent designed to assist with log analytics and querying.
 
 ## Technology Stack
 - Python
-- Gemini AI API - (to be replaced with OpenAI API)
+- MultiModel support (Groq AI, Gemini AI, OpenAI, Anthropic)
 - Fluvio (for log streaming) - (status: in progress)
-- LangChain (for natural language processing)
-- Chromadb (for vector storage)
-- FastAPI (for building APIs)
+- LangChain
+- Chromadb
+- FastAPI
 - Docker (for containerization) - not yet implemented
 - Redis (for caching) - not yet implemented
 - PostgreSQL (for database storage) - not yet implemented
@@ -42,6 +42,8 @@ pip install -r requirements.txt
 
 Note: For this prototype, we are just dumping the logs into a file. We're working on integrating with Fluvio for log streaming. The integration is in progress, and we will update the documentation once it's complete. Also there are other sources like Redis, PostgreSQL, and Docker that are yet to be implemented.
 
+You can pass any AI model you want to use for log analysis. Currently, we have implemented support for Groq AI, Gemini AI, OpenAI, and Anthropic. You can choose the model you want to use by setting the `MODEL` environment variable in your `.env` file.
+
 Populate the `chromadb` database with the logs you want to analyze. You can use the `populate_logs.py` script to do this. The script will read the logs from a specified file and populate the database with the log entries.
 
 ```bash
@@ -56,6 +58,10 @@ Before using AutoAgentDesk, make sure to set up the necessary environment variab
 FLUVIO_TOPIC=logs
 CHROMA_DB_PATH=./chroma_db
 GOOGLE_API_KEY=your_google_api_key
+GROQ_API_KEY=your_groq_api_key
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+DEFAULT_PROVIDER=google
 LOG_RETENTION_DAYS=30
 MAX_BATCH_SIZE=100
 PROCESSING_INTERVAL=5
