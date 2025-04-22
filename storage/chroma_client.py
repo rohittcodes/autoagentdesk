@@ -123,24 +123,46 @@ class ChromaLogStore:
     ):
         """Query logs with semantic search and/or metadata filtering"""
         try:
-            # Build the where clause differently based on the error message
-            where_clause = {}
+            # Build the where clause according to ChromaDB's expected format
+            conditions = []
             
-            # Add filters directly to the where clause 
+            # Add filters to conditions
             if filters:
                 for key, value in filters.items():
-                    where_clause[key] = {"$eq": value}
+                    # Map filter keys to the correct ChromaDB metadata fields
+                    # For example, 'service_name' should be 'service'
+                    if key == 'service_name':
+                        key = 'service'
+                    elif key == 'log_level':
+                        key = 'level'
+                        
+                    # Handle multiple values for a single key (e.g., ['ERROR', 'WARN'])
+                    if isinstance(value, list) and len(value) > 1:
+                        # Use $in operator for multiple values
+                        conditions.append({key: {"$in": value}})
+                    elif isinstance(value, list) and len(value) == 1:
+                        # Use $eq for a single value in a list
+                        conditions.append({key: {"$eq": value[0]}})
+                    else:
+                        # Use $eq for a single value
+                        conditions.append({key: {"$eq": value}})
                     
-            # Add time range to the where clause
+            # Add time range conditions
             if time_range:
                 if "start" in time_range:
-                    if "timestamp" not in where_clause:
-                        where_clause["timestamp"] = {}
-                    where_clause["timestamp"]["$gte"] = time_range["start"]
+                    conditions.append({"timestamp": {"$gte": time_range["start"]}})
                 if "end" in time_range:
-                    if "timestamp" not in where_clause:
-                        where_clause["timestamp"] = {}
-                    where_clause["timestamp"]["$lte"] = time_range["end"]
+                    conditions.append({"timestamp": {"$lte": time_range["end"]}})
+                
+            # Combine all conditions with $and if there are multiple conditions
+            where_clause = {}
+            if conditions:
+                if len(conditions) == 1:
+                    # If there's only one condition, use it directly
+                    where_clause = conditions[0]
+                else:
+                    # If there are multiple conditions, use $and
+                    where_clause = {"$and": conditions}
                 
             # Debug: Print the constructed where clause
             print(f"DEBUG - Constructed where clause: {where_clause}")

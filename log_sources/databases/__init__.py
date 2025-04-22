@@ -28,7 +28,7 @@ class DatabaseLogSource(LogSource):
                 - database: Database name (if uri not provided)
                 - username: Database username (if uri not provided)
                 - password: Database password (if uri not provided)
-                - log_query: SQL query to fetch logs or table name
+                - log_query: SQL query to fetch logs or table name (can be any table name)
                 - field_mappings: Mappings from DB column names to log fields
                 - last_timestamp: Optional timestamp to fetch logs after
         """
@@ -39,13 +39,24 @@ class DatabaseLogSource(LogSource):
         self.database = config.get('database')
         self.username = config.get('username')
         self.password = config.get('password')
-        self.log_query = config.get('log_query')
+        self.log_query = config.get('log_query', '')
+        
+        # If log_query is empty, use a generic query that works on any table with timestamp
+        if not self.log_query:
+            # User can specify a table name to use
+            table_name = config.get('table_name')
+            if table_name:
+                self.log_query = table_name
+        
+        # Field mappings define how database columns map to log fields
+        # This allows flexibility for any table structure
         self.field_mappings = config.get('field_mappings', {
-            'timestamp': 'timestamp',
-            'level': 'level',
-            'message': 'message',
-            'service': 'service'
+            'timestamp': config.get('timestamp_field', 'timestamp'),
+            'level': config.get('level_field', 'level'),
+            'message': config.get('message_field', 'message'),
+            'service': config.get('service_field', 'service')
         })
+        
         self.last_timestamp = config.get('last_timestamp')
         self.connection = None
         self.cursor = None
@@ -57,8 +68,10 @@ class DatabaseLogSource(LogSource):
         if not self.uri and not (self.host and self.database):
             raise ValueError("Either connection URI or host/database must be provided")
             
-        if not self.log_query:
-            raise ValueError("Log query or table name must be provided")
+        # Allow empty log_query if table_name is provided
+        if not self.log_query and not self.config.get('table_name'):
+            # Try to discover available tables
+            logger.info("No log table or query specified. Will attempt to discover tables at connection time.")
     
     async def connect(self) -> bool:
         """
@@ -76,7 +89,7 @@ class DatabaseLogSource(LogSource):
                 else:
                     self.connection = await asyncpg.connect(
                         host=self.host,
-                        port=self.port,
+                        port=int(self.port) if self.port and self.port.strip() else 5432,
                         user=self.username,
                         password=self.password,
                         database=self.database
@@ -102,7 +115,7 @@ class DatabaseLogSource(LogSource):
                 else:
                     self.connection = await aiomysql.connect(
                         host=self.host,
-                        port=int(self.port) if self.port else 3306,
+                        port=int(self.port) if self.port and self.port.strip() else 3306,
                         user=self.username,
                         password=self.password,
                         db=self.database,
@@ -140,7 +153,7 @@ class DatabaseLogSource(LogSource):
                 else:
                     self.connection = await asyncpg.connect(
                         host=self.host,
-                        port=int(self.port) if self.port else 5432,
+                        port=int(self.port) if self.port and self.port.strip() else 5432,
                         user=self.username,
                         password=self.password,  # API key for Supabase
                         database=self.database
@@ -155,7 +168,7 @@ class DatabaseLogSource(LogSource):
                 else:
                     self.connection = await asyncpg.connect(
                         host=self.host,
-                        port=self.port,
+                        port=int(self.port) if self.port and self.port.strip() else 5432,
                         user=self.username,
                         password=self.password,
                         database=self.database
@@ -327,10 +340,34 @@ class DatabaseLogSource(LogSource):
         if not self.connection:
             await self.connect()
             
-        query = self._build_query()
-        logs = []
-        
         try:
+            # Verify table exists and discover columns if it's a simple table name
+            if ' ' not in self.log_query and ';' not in self.log_query:
+                table_name = self.log_query
+                
+                # Get table columns to check if timestamp field exists
+                columns = await self._get_table_columns(table_name)
+                
+                # If the specified timestamp field doesn't exist, try common timestamp column names
+                timestamp_field = self.field_mappings.get('timestamp', 'timestamp')
+                if timestamp_field not in columns:
+                    # Try common timestamp column names
+                    common_timestamp_fields = [
+                        'created_at', 'timestamp', 'time', 'datetime', 'date', 'ts', 
+                        'created', 'logged_at', 'event_time', 'log_time'
+                    ]
+                    
+                    for field in common_timestamp_fields:
+                        if field in columns:
+                            # Update field mapping with the discovered timestamp field
+                            self.field_mappings['timestamp'] = field
+                            logger.info(f"Using discovered timestamp field: {field}")
+                            break
+            
+            # Now build and execute query with the possibly updated field mappings
+            query = self._build_query()
+            logs = []
+            
             if self.db_type == 'postgresql' or self.db_type == 'supabase' or self.db_type == 'neon':
                 # Use asyncpg
                 rows = await self.connection.fetch(query)
@@ -361,6 +398,47 @@ class DatabaseLogSource(LogSource):
             logger.error(f"Error fetching logs from database: {str(e)}")
             raise
             
+    async def _get_table_columns(self, table_name: str) -> List[str]:
+        """
+        Get the column names for a database table.
+        
+        Args:
+            table_name: The name of the table
+            
+        Returns:
+            List[str]: A list of column names
+        """
+        try:
+            if self.db_type in ['postgresql', 'supabase', 'neon']:
+                # PostgreSQL query for column names
+                query = f"""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name = '{table_name}' AND table_schema = 'public'
+                """
+                columns = await self.connection.fetch(query)
+                return [col['column_name'] for col in columns]
+                
+            elif self.db_type == 'mysql':
+                # MySQL query for column names
+                await self.cursor.execute(f"SHOW COLUMNS FROM {table_name}")
+                columns = await self.cursor.fetchall()
+                return [col['Field'] for col in columns]
+                
+            elif self.db_type == 'sqlite':
+                # SQLite query for column names
+                async with self.connection.execute(f"PRAGMA table_info({table_name})") as cursor:
+                    columns = []
+                    async for row in cursor:
+                        columns.append(row[1])  # Column name is at index 1
+                    return columns
+                    
+            return []
+                
+        except Exception as e:
+            logger.error(f"Error getting columns for table {table_name}: {str(e)}")
+            return []
+    
     async def stream_logs(self, from_timestamp: Optional[datetime] = None) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Stream logs from the database.
@@ -382,3 +460,45 @@ class DatabaseLogSource(LogSource):
                 
         finally:
             await self.disconnect()
+    
+    async def discover_tables(self) -> List[str]:
+        """
+        Discover available tables in the database that could contain logs.
+        
+        Returns:
+            List[str]: A list of table names
+        """
+        if not self.connection:
+            await self.connect()
+            
+        try:
+            if self.db_type in ['postgresql', 'supabase', 'neon']:
+                # Query to list tables in PostgreSQL/Supabase/Neon
+                query = """
+                SELECT table_name 
+                FROM information_schema.tables 
+                WHERE table_schema = 'public'
+                ORDER BY table_name;
+                """
+                tables = await self.connection.fetch(query)
+                return [table['table_name'] for table in tables]
+                
+            elif self.db_type == 'mysql':
+                # Query to list tables in MySQL
+                await self.cursor.execute("SHOW TABLES")
+                tables = await self.cursor.fetchall()
+                return [list(table.values())[0] for table in tables]
+                
+            elif self.db_type == 'sqlite':
+                # Query to list tables in SQLite
+                async with self.connection.execute("SELECT name FROM sqlite_master WHERE type='table'") as cursor:
+                    tables = []
+                    async for row in cursor:
+                        tables.append(row[0])
+                    return tables
+            
+            return []
+                
+        except Exception as e:
+            logger.error(f"Error discovering tables: {str(e)}")
+            return []

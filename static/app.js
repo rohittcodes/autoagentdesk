@@ -955,6 +955,7 @@ class DatabaseLogStreamer {
         this.logCount = 0;
         this.lastTimestamp = null;
         this.savedConnections = this.loadSavedConnections();
+        this.availableTables = [];
     }
 
     // Connect to database and start streaming logs
@@ -1006,6 +1007,144 @@ class DatabaseLogStreamer {
         }
     }
 
+    // List available tables in the database
+    async listTables(config) {
+        try {
+            // Show loading state for table list
+            const tablesList = document.getElementById('tables-list');
+            tablesList.innerHTML = '<div class="text-center py-4"><div class="inline-block animate-spin h-5 w-5 border-2 border-indigo-500 border-t-transparent rounded-full"></div><p class="mt-2 text-sm text-gray-500">Retrieving tables...</p></div>';
+            
+            // Ensure the table browser section is visible
+            document.getElementById('table-browser-section').classList.remove('hidden');
+            
+            // Fetch tables from the API
+            const response = await fetch('/ingest/database/list-tables', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(config)
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.detail || 'Failed to list tables');
+            }
+            
+            const result = await response.json();
+            this.availableTables = result.tables || [];
+            
+            if (this.availableTables.length === 0) {
+                tablesList.innerHTML = '<p class="text-sm text-gray-500 text-center py-4">No tables found in database.</p>';
+                return;
+            }
+            
+            // Display the tables with selection buttons
+            let html = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">';
+            
+            this.availableTables.forEach(table => {
+                html += `
+                    <div class="p-2 border border-gray-200 rounded flex justify-between items-center">
+                        <span class="text-sm text-gray-700">${table}</span>
+                        <button type="button" data-table="${table}" class="select-table-btn px-2 py-1 text-xs text-white bg-indigo-500 hover:bg-indigo-600 rounded">
+                            Select
+                        </button>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            tablesList.innerHTML = html;
+            
+            // Add event listeners for table selection
+            document.querySelectorAll('.select-table-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const tableName = e.target.dataset.table;
+                    this.selectTable(tableName);
+                });
+            });
+            
+            return this.availableTables;
+        } catch (error) {
+            console.error('Error listing tables:', error);
+            const tablesList = document.getElementById('tables-list');
+            tablesList.innerHTML = `<div class="text-red-500 p-2 text-sm">Error listing tables: ${error.message}</div>`;
+            return [];
+        }
+    }
+    
+    // Handle table selection
+    selectTable(tableName) {
+        // Set the selected table in the log_query field
+        const queryField = document.querySelector('textarea[name="log_query"]');
+        queryField.value = tableName;
+        
+        // Show a notification
+        showNotification(`Selected table: ${tableName}`);
+        
+        // Suggest field mappings based on table name (if it looks like a logs table)
+        this.suggestFieldMappings(tableName);
+    }
+    
+    // Suggest field mappings based on table name
+    suggestFieldMappings(tableName) {
+        const lowerTableName = tableName.toLowerCase();
+        
+        // Only make suggestions for tables that seem to be log tables
+        if (lowerTableName.includes('log') || lowerTableName.includes('event')) {
+            // Common field mapping patterns
+            const mappingSuggestions = {
+                // For tables named 'logs'
+                'logs': {
+                    timestamp: 'timestamp',
+                    level: 'level',
+                    message: 'message',
+                    service: 'service'
+                },
+                // For tables named 'events' or 'log_events'
+                'events': {
+                    timestamp: 'created_at',
+                    level: 'severity',
+                    message: 'description',
+                    service: 'source'
+                },
+                'log_events': {
+                    timestamp: 'created_at',
+                    level: 'level',
+                    message: 'message',
+                    service: 'service_name'
+                },
+                // For tables with 'audit' in the name
+                'audit': {
+                    timestamp: 'timestamp',
+                    level: 'action_type',
+                    message: 'details',
+                    service: 'user_id'
+                }
+            };
+            
+            // Find the best matching pattern
+            let bestMatch = null;
+            
+            for (const pattern in mappingSuggestions) {
+                if (lowerTableName.includes(pattern)) {
+                    bestMatch = pattern;
+                    break;
+                }
+            }
+            
+            // Apply suggestions if a match was found
+            if (bestMatch) {
+                const mappings = mappingSuggestions[bestMatch];
+                
+                document.querySelector('input[name="timestamp_field"]').value = mappings.timestamp;
+                document.querySelector('input[name="level_field"]').value = mappings.level;
+                document.querySelector('input[name="message_field"]').value = mappings.message;
+                document.querySelector('input[name="service_field"]').value = mappings.service;
+            }
+        }
+    }
+    
     // Start streaming logs using polling or WebSocket
     startStreaming() {
         // Clear any existing interval
@@ -1459,6 +1598,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pauseButton = document.getElementById('pause-stream-button');
     const resumeButton = document.getElementById('resume-stream-button');
     const disconnectButton = document.getElementById('disconnect-button');
+    const listTablesButton = document.getElementById('list-tables-button');
     
     // Toggle between URI and detailed connection fields
     toggleConnectionDetails.addEventListener('click', () => {
@@ -1475,6 +1615,59 @@ document.addEventListener('DOMContentLoaded', () => {
             uriField.classList.add('hidden');
             detailedFields.classList.remove('hidden');
             toggleConnectionDetails.textContent = 'Use connection URI instead';
+        }
+    });
+    
+    // Add event listener for the "Browse Tables" button
+    listTablesButton.addEventListener('click', async () => {
+        const formData = new FormData(connectionForm);
+        const config = {
+            db_type: formData.get('db_type')
+        };
+        
+        // Check if we're using URI or detailed fields
+        if (!document.getElementById('uri-field').classList.contains('hidden')) {
+            config.uri = formData.get('uri');
+            
+            // Validate that URI is provided
+            if (!config.uri) {
+                showNotification('Please provide a database URI', 'error');
+                return;
+            }
+        } else {
+            config.host = formData.get('host');
+            config.port = formData.get('port');
+            config.database = formData.get('database');
+            config.username = formData.get('username');
+            config.password = formData.get('password');
+            
+            // Validate required fields
+            if (!config.host || !config.database || !config.username) {
+                showNotification('Please provide host, database, and username', 'error');
+                return;
+            }
+        }
+        
+        // Show loading state
+        const listTablesText = document.getElementById('list-tables-text');
+        const listTablesSpinner = document.getElementById('list-tables-spinner');
+        
+        listTablesButton.disabled = true;
+        listTablesSpinner.classList.remove('hidden');
+        listTablesText.textContent = 'Loading...';
+        
+        try {
+            // List available tables
+            await dbStreamer.listTables(config);
+            showNotification('Successfully retrieved database tables');
+        } catch (error) {
+            console.error('Error listing tables:', error);
+            showNotification('Error listing tables: ' + error.message, 'error');
+        } finally {
+            // Reset button state
+            listTablesButton.disabled = false;
+            listTablesSpinner.classList.add('hidden');
+            listTablesText.textContent = 'Browse Tables';
         }
     });
     

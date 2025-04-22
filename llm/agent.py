@@ -40,7 +40,7 @@ class LogAnalysisAgent:
         self.analysis_prompt = PromptTemplate(
             input_variables=["query", "logs", "context", "previous_findings"],
             template="""
-            You are an expert log analysis system. Analyze these logs considering the following context:
+            You are an expert log analysis system specializing in identifying critical performance issues, especially regarding database services. Analyze these logs considering the following context:
 
             USER QUERY: {query}
             
@@ -52,11 +52,13 @@ class LogAnalysisAgent:
             {logs}
             
             Analyze these logs and provide:
-            1. Direct answer to the user's query
-            2. Key patterns or anomalies identified
+            1. Direct answer to the user's query - if there are database performance issues, highlight them clearly
+            2. Key patterns or anomalies identified - pay special attention to memory usage, CPU spikes, and connection errors
             3. Correlation with previous findings
-            4. Potential root causes for any issues
-            5. Recommended actions if applicable
+            4. Potential root causes for any issues - especially focus on database resource problems
+            5. Recommended actions if applicable - provide specific steps to address database performance issues
+            
+            Important: ALWAYS prioritize critical errors related to database services, memory issues, and connectivity problems. These are the most important issues to highlight in your response even if they seem like isolated incidents.
             
             Include specific evidence from the logs to support your analysis.
             """
@@ -78,6 +80,8 @@ class LogAnalysisAgent:
             - correlations: Related metrics to analyze
             - analysis_type: Type of analysis (pattern, anomaly, root_cause, etc.)
             - limit: Results to return (default 100)
+            
+            If the query mentions database, performance, memory usage, CPU usage, or other system metrics, make sure to include those terms in the semantic_query and add appropriate filters for service names like "database" and error levels.
             
             Return ONLY the JSON object.
             """
@@ -563,7 +567,7 @@ class LogAnalysisAgent:
         return len(text) // 4  # Simple approximation
     
     def _truncate_for_model(self, text: str, max_tokens: int = 4000) -> str:
-        """Truncate text to fit within token limits for different models"""
+        """Truncate text to fit within token limits for different models while preserving critical information"""
         # Use a smaller limit for inputs to leave room for the output
         input_token_limit = max_tokens
         
@@ -577,13 +581,73 @@ class LogAnalysisAgent:
         if estimated_tokens <= input_token_limit:
             return text
             
-        # If larger than the limit, truncate
-        print(f"Text size ({estimated_tokens} est. tokens) exceeds limit ({input_token_limit}). Truncating...")
+        # If larger than the limit, we need to truncate smartly
+        print(f"Text size ({estimated_tokens} est. tokens) exceeds limit ({input_token_limit}). Truncating smartly...")
+        
+        # If this is JSON data, try to parse and prioritize error logs
+        try:
+            if text.strip().startswith('[') and text.strip().endswith(']'):
+                logs = json.loads(text)
+                if isinstance(logs, list) and logs and isinstance(logs[0], dict):
+                    # Prioritize database error logs
+                    high_priority_logs = []
+                    normal_logs = []
+                    
+                    for log in logs:
+                        level = log.get('level', '').upper() if isinstance(log.get('level'), str) else ''
+                        service = log.get('service', '').lower() if isinstance(log.get('service'), str) else ''
+                        msg = log.get('message', '').lower() if isinstance(log.get('message'), str) else ''
+                        
+                        # High priority: Database errors and memory issues
+                        if (level == 'ERROR' and 
+                            (service == 'database' or 
+                             'memory' in msg or 
+                             'cpu' in msg or 
+                             'database' in msg or
+                             'connection' in msg)):
+                            high_priority_logs.append(log)
+                        else:
+                            normal_logs.append(log)
+                    
+                    # Calculate how many normal logs we can include
+                    high_priority_json = json.dumps(high_priority_logs, indent=2)
+                    high_priority_tokens = self._estimate_token_count(high_priority_json)
+                    remaining_tokens = input_token_limit - high_priority_tokens - 100  # 100 tokens buffer
+                    
+                    # If we can include some normal logs
+                    if remaining_tokens > 0:
+                        # Take a sample from the beginning, middle and end
+                        sample_size = min(len(normal_logs), max(3, remaining_tokens // 200))
+                        if sample_size >= 3 and len(normal_logs) >= 3:
+                            sample_logs = []
+                            # Beginning
+                            sample_logs.extend(normal_logs[:sample_size//3])
+                            # Middle
+                            mid_start = len(normal_logs)//2 - sample_size//6
+                            sample_logs.extend(normal_logs[mid_start:mid_start + sample_size//3])
+                            # End
+                            sample_logs.extend(normal_logs[-sample_size//3:])
+                            
+                            # Combine high priority and sample logs
+                            combined_logs = high_priority_logs + sample_logs
+                            result = json.dumps(combined_logs, indent=2)
+                            
+                            # Check if we're still within limits
+                            if self._estimate_token_count(result) <= input_token_limit:
+                                return result
+                    
+                    # If we couldn't include normal logs or the combined result was too large
+                    # Just return the high priority logs
+                    if high_priority_logs and high_priority_tokens <= input_token_limit:
+                        return json.dumps(high_priority_logs, indent=2)
+        except:
+            # If JSON parsing fails, continue with the regular truncation
+            pass
         
         # Calculate character limit (converting tokens back to characters)
         char_limit = input_token_limit * 4
         
-        # Preserve the beginning and end of the text, removing middle content
+        # Regular truncation: preserve beginning and end, remove middle
         beginning = text[:char_limit // 2]
         ending = text[-char_limit // 2:]
         
@@ -608,6 +672,16 @@ class LogAnalysisAgent:
                 msg = log['message']
                 level = log.get('level', 'INFO')
                 service = log.get('service', 'unknown')
+                
+                # Always include ERROR logs related to database or memory
+                if (level == "ERROR" and 
+                    (service.lower() == "database" or 
+                     "memory" in msg.lower() or 
+                     "cpu" in msg.lower() or 
+                     "database" in msg.lower() or
+                     "connection" in msg.lower())):
+                    compressed_logs.append(log)
+                    continue
                 
                 # Create a signature based on content structure
                 # Remove timestamps, IDs, and specific values

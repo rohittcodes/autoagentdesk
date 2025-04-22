@@ -45,7 +45,35 @@ async def fetch_database_logs(
         
         # If we got logs, store them in ChromaDB
         if logs:
-            await log_store.store_logs(logs)
+            # Add a producer_id field to each log if it doesn't exist
+            for log in logs:
+                if "producer_id" not in log:
+                    log["producer_id"] = "database"
+                    
+                # Ensure all metadata is properly formatted for ChromaDB
+                if "metadata" in log and log["metadata"] is not None:
+                    # Make sure metadata is a dict
+                    if not isinstance(log["metadata"], dict):
+                        log["metadata"] = {"value": str(log["metadata"])}
+                        
+                    # Check for non-serializable objects in metadata
+                    for key, value in list(log["metadata"].items()):
+                        try:
+                            # Test if value is JSON serializable
+                            json.dumps({key: value})
+                        except (TypeError, OverflowError):
+                            # If not serializable, convert to string
+                            log["metadata"][key] = str(value)
+                else:
+                    log["metadata"] = {}
+                    
+            try:
+                await log_store.store_logs(logs)
+            except Exception as e:
+                print(f"Error storing logs in ChromaDB: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                # Continue with the request even if ChromaDB storage fails
             
             # Stream logs to Fluvio if configured
             try:
@@ -66,6 +94,8 @@ async def fetch_database_logs(
             "logs": logs
         }
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error fetching logs: {str(e)}")
 
 @router.post("/stream")
@@ -124,6 +154,23 @@ async def stop_database_streaming(connection_id: str):
         connection_cache[connection_id]["status"] = "stopped"
     
     return {"status": "stopped", "message": "Database streaming stopped"}
+
+@router.post("/list-tables")
+async def list_database_tables(config: Dict[str, Any]):
+    """List available tables in the database that could contain logs"""
+    try:
+        db_source = DatabaseLogSource(config)
+        await db_source.connect()
+        
+        tables = await db_source.discover_tables()
+        await db_source.disconnect()
+        
+        return {
+            "tables": tables,
+            "message": f"Found {len(tables)} tables in the database"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing tables: {str(e)}")
 
 async def stream_logs_background(connection_id: str):
     """
