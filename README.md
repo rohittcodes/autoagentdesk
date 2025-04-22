@@ -154,15 +154,29 @@ Access the API at `http://localhost:8000`.
 
 ## 📎 Resources / Credits
 
-- APIs: Fluvio, LangChain, Groq AI, OpenAI, Anthropic  
+- APIs: Fluvio, LangChain, Groq AI,  OpenAI, Anthropic  
 - Tools: Chromadb, FastAPI, Docker, Redis  
 - Acknowledgements: HackHazards team and community  
 
 ---
 
 ## 🏁 Final Words
+My hackathon journey building AutoAgentDesk has been both challenging and rewarding! Here's a glimpse into my experience:
 
-Share your hackathon journey — challenges, learnings, fun moments, or shout-outs!
+### Challenges & Learnings
+- Working with ChromaDB's query format was a significant hurdle. When implementing filters, I discovered that ChromaDB has specific requirements for field names and operators. After debugging the "Invalid where clause" errors, I learned the importance of proper field name mapping and using the correct query operators (`$in` vs `$eq`).
+- The context variable definition bug in the LogAnalysisAgent class taught me to be more careful about variable scoping in asynchronous Python code. Always capture return values!
+- Balancing token limits with comprehensive log analysis was tricky. I developed a smart log prioritization system that ensures critical database and memory-related errors are never truncated, even when dealing with thousands of logs.
+
+### Technical Insights
+- Integrating Groq's API was seamless once I understood its token limitations. The performance improvement over other models for this specific use case was impressive - responses are noticeably faster.
+- Fluvio's streaming capabilities transformed the project from a basic log analysis tool into a real-time monitoring platform. The producer-consumer architecture enables complex real-time pipelines that traditional log systems can't match.
+- Building a context-aware AI agent that maintains conversation history and previous findings created a more natural and insightful user experience than I initially expected.
+
+### Community & Inspiration
+- Special thanks to the Groq and InfinyOn teams for their documentation and sample projects that helped make integration smoother.
+
+I'm excited to continue developing AutoAgentDesk beyond this hackathon, with plans to implement the alerting system and ReactJS frontend improvements next. This project has deepened my understanding of AI-assisted observability tools and real-time data processing architectures.
 
 ---
 
