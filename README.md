@@ -1,13 +1,121 @@
-# AutoAgentDesk - An AI agent for log analytics and querying
+![github-submission-banner](https://github.com/user-attachments/assets/a1493b84-e4e2-456e-a791-ce35ee2bcf2f)
 
-AutoAgentDesk is an AI agent designed to assist with log analytics and querying. You can interact with your logs from various sources, including frontend logs, backend logs, and database logs. The agent is capable of performing a wide range of tasks, including:
-- Analyzing logs
-- Querying logs
-- Generating reports
-- Visualizing data (yet to be implemented)
-- Answering questions about logs
-- Generating insights
-## Architecture Diagrams & Snapshots
+# 🚀 AutoAgentDesk
+
+> An AI agent for log analytics and querying.
+
+---
+
+## 📌 Problem Statement
+
+**Problem Statement 3 – Real-Time Data Experiences with Fluvio**
+
+---
+
+## 🎯 Objective
+
+AutoAgentDesk addresses the challenges of log analytics and querying by providing an AI-powered solution that simplifies the process. It enables users to interact with logs in natural language, analyze them in real-time, and generate actionable insights.
+
+- **Problem:**  
+  - Log analytics is time-consuming and complex, especially with large datasets from multiple sources.
+  - Traditional tools lack real-time capabilities and require manual intervention.
+- **Solution:**  
+  - AutoAgentDesk automates log analytics and querying with an AI agent that supports natural language interaction.
+  - It provides real-time insights, report generation, and multi-source log integration.
+- **Target Audience:**  
+  - Developers, DevOps engineers, and data analysts.
+  - Organizations needing real-time log monitoring and analytics.
+- **Value Proposition:**  
+  - Saves time and reduces complexity in log analysis.
+  - Makes log querying accessible to non-technical users.
+  - Enables faster issue resolution with real-time capabilities.
+
+---
+
+## 🧠 Team & Approach
+
+### Team Name:  
+`AutoAgentDesk` (Solo hacker)
+
+### Team Members:  
+- Rohith Singh (Team Lead)
+
+### Approach:  
+- Researched existing tools and identified gaps.
+- Designed a scalable architecture for real-time log processing and natural language interaction.
+- Built the core functionality using Python, FastAPI, LangChain, and Fluvio.
+- Integrated Chromadb for log storage and trained the AI on diverse log queries.
+- Created a web interface for user-friendly interaction.
+- Iteratively improved the agent based on feedback.
+
+---
+
+## 🛠️ Tech Stack
+
+### Core Technologies:
+- **Frontend:** HTML, CSS, JavaScript (ReactJS)
+- **Backend:** Python, FastAPI
+- **Database:** Chromadb, PostgreSQL
+- **APIs:** Fluvio (log streaming), LangChain (NLP)
+- **AI Models:** Groq AI, Gemini AI, OpenAI, Anthropic
+- **Hosting:** Docker (containerization), Redis (caching) - not yet implemented
+- **Other Tools:** GitHub (version control), Postman (API testing)
+
+---
+
+## ✨ Key Features
+
+- ✅ Multi-model AI support (Groq AI, Gemini AI, OpenAI, Anthropic)  
+- ✅ Real-time log streaming with Fluvio  
+- ✅ Natural language querying for logs  
+- ✅ Multi-source log integration (frontend, backend, database)  
+- ✅ RESTful API and web interface  
+- ✅ Plugin system for extensibility  
+- ✅ Support for JSON, XML, and other log formats  
+- ✅ Timeline tracking and state management  
+- ✅ Report generation and batch processing  
+
+---
+
+## 📽️ Demo & Deliverables
+
+- **Demo Video Link:** [YouTube](https://youtu.be/HslDdRlI48Q)  
+- **Pitch Deck / PPT Link:** [Google Slides](https://docs.google.com/presentation/d/1ZF7uGd7cZEL1pabyFeWnp1DSQmmJWnp0eutTnlmVXIE/edit?usp=sharing)  
+
+---
+
+## 🧪 How to Run the Project
+
+### Requirements:
+- **Python 3.8+**: Ensure Python is installed on your system.
+- **Node.js**: Required for the frontend (if applicable).
+- **Docker**: For containerization (optional, not yet implemented).
+- **Fluvio**: For real-time log streaming.
+- **API Keys**: Required for AI models and services:
+  - `GROQ_API_KEY`
+  - `OPENAI_API_KEY`
+  - `ANTHROPIC_API_KEY`
+  - `GOOGLE_API_KEY`
+- **Environment Variables**: Set up a `.env` file in the root directory. Refer to the `.env_sample` file for required variables.
+- **Chromadb**: For log storage.
+- **PostgreSQL**: For database storage (optional, not yet implemented).
+- **Redis**: For caching (optional, not yet implemented).
+
+### Local Setup:
+```bash
+git clone https://github.com/rohittcodes/autoagentdesk
+
+cd autoagentdesk
+pip install -r requirements.txt
+
+python main.py
+```
+
+Access the API at `http://localhost:8000`.
+
+---
+
+## 🧬 Architecture Diagrams & Snapshots
 
 <details>
   <summary><strong>Click to view architecture diagrams and snapshots</strong></summary>
@@ -32,61 +140,31 @@ AutoAgentDesk is an AI agent designed to assist with log analytics and querying.
 
 </details>
 
-## Technology Stack
-- Python
-- MultiModel support (Groq AI, Gemini AI, OpenAI, Anthropic)
-- Fluvio (for log streaming)
-- LangChain
-- Chromadb
-- FastAPI
-- Docker (for containerization) - not yet implemented
-- Redis (for caching) - not yet implemented
-- PostgreSQL (for database storage) - not yet implemented
+---
 
-## Installation
-To install AutoAgentDesk, clone the repository and install the required dependencies:
+## 🧬 Future Scope
 
-```bash
-git clone https://github.com/rohittcodes/autoagentdesk
-cd autoagentdesk
-pip install -r requirements.txt
-```
+- 📈 Add more integrations and advanced analytics features.  
+- 🛡️ Enhance security and scalability.  
+- 🌐 Support localization and multi-language capabilities.  
+- 🔔 Implement alerting and notification systems.  
+- 🖥️ Improve the web interface with ReactJS.  
 
-> Note: There are other sources like Redis, PostgreSQL, and Docker that are yet to be implemented.
+---
 
-You can pass any AI model you want to use for log analysis. Currently, we have implemented support for Groq AI, Gemini AI, OpenAI, and Anthropic. You can choose the model you want to use by setting the `MODEL` environment variable in your `.env` file.
+## 📎 Resources / Credits
 
-Populate the `chromadb` database with the logs you want to analyze. You can use the `populate_logs.py` script to do this. The script will read the logs from a specified file and populate the database with the log entries.
+- APIs: Fluvio, LangChain, Groq AI, OpenAI, Anthropic  
+- Tools: Chromadb, FastAPI, Docker, Redis  
+- Acknowledgements: HackHazards team and community  
 
-```bash
-python populate_logs.py
-```
-this will create a `chromadb` database in the current directory with the logs you want to analyze.
+---
 
-## Usage
-Before using AutoAgentDesk, make sure to set up the necessary environment variables for the Gemini AI API and any other required configurations. You can do this by creating a `.env` file in the root directory of the project and adding the following lines from the `.env_sample` file:
+## 🏁 Final Words
 
-```bash
-FLUVIO_TOPIC=logs
-CHROMA_DB_PATH=./chroma_db
-GOOGLE_API_KEY=your_google_api_key
-GROQ_API_KEY=your_groq_api_key
-OPENAI_API_KEY=your_openai_key
-ANTHROPIC_API_KEY=your_anthropic_key
-DEFAULT_PROVIDER=google
-LOG_RETENTION_DAYS=30
-MAX_BATCH_SIZE=100
-PROCESSING_INTERVAL=5
-```
+Share your hackathon journey — challenges, learnings, fun moments, or shout-outs!
 
-Once you have set up the environment variables, you can start the FastAPI server:
-Note: Don't forget to setup `Fluvio`, and start your virtual environment using `source venv/bin/activate` command.
-
-```bash
-python main.py
-```
-
-You can then access the API at `http://localhost:8000`. The API provides endpoints for interacting with the AI agent, including sending log data, querying logs, and generating reports.
+---
 
 ## API Endpoints
 - `/logs`: Endpoint for analyzing logs. You can access this endpoint to send log data to the AI agent for analysis. The agent will process the logs and return insights based on the data.
