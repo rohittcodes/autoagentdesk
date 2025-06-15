@@ -38,7 +38,6 @@ filelock==3.18.0
 filetype==1.2.0
 flake8==7.1.1
 flatbuffers==25.2.10
-fluvio==0.20.0
 frozenlist==1.6.0
 fsspec==2025.3.2
 google-ai-generativelanguage==0.6.15
@@ -155,7 +154,6 @@ typing-inspection==0.4.0
 uritemplate==4.1.1
 urllib3==2.4.0
 uvicorn==0.34.1
-uvloop==0.21.0
 watchfiles==1.0.5
 websocket-client==1.8.0
 websockets==15.0.1

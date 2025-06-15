@@ -7,8 +7,6 @@ import json
 # Import our components
 from storage.chroma_client import ChromaLogStore
 from llm.agent import LogAnalysisAgent
-from log_ingestion.fluvio_consumer import LogConsumer
-from config import FLUVIO_TOPIC
 
 # Create router
 router = APIRouter(prefix="/logs", tags=["logs"])
@@ -32,14 +30,6 @@ async def websocket_endpoint(websocket: WebSocket):
     active_connections.append(websocket)
     
     try:
-        # Create a consumer just for this connection
-        async def process_log_batch(logs):
-            for log in logs:
-                await websocket.send_json(log)
-        
-        consumer = LogConsumer(FLUVIO_TOPIC, process_log_batch, max_batch_size=1)  # Process logs one at a time
-        consumer_task = asyncio.create_task(consumer.start_consuming())
-        
         # Keep the connection alive until the client disconnects
         try:
             while True:
@@ -48,8 +38,6 @@ async def websocket_endpoint(websocket: WebSocket):
                 # could implement filtering here based on client messages
         except WebSocketDisconnect:
             active_connections.remove(websocket)
-            consumer.running = False
-            consumer_task.cancel()
     except Exception as e:
         print(f"WebSocket error: {e}")
         if websocket in active_connections:

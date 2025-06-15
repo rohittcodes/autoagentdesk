@@ -26,90 +26,116 @@ async def get_log_store():
 @router.post("/file")
 async def ingest_log_file(
     file: UploadFile = File(...),
-    format: LogFormat = Form(...),
-    pattern: Optional[str] = Form(None),
+    format: LogFormat = Form(...),    pattern: Optional[str] = Form(None),
     timestamp_format: Optional[str] = Form(None),
     field_mappings: Optional[Dict[str, Any]] = Form(None),
     log_store: ChromaLogStore = Depends(get_log_store)
 ):
-    """Ingest logs from an uploaded file"""
+    """Ingest logs from an uploaded file"""    temp_path = None
     try:
         # Create a temporary file to store the upload
-        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-            content = await file.read()
-            temp_file.write(content)
-            temp_path = temp_file.name
-
+        content = await file.read()
+        
+        # Create temporary file with proper Windows handling
+        import tempfile
+        temp_fd, temp_path = tempfile.mkstemp()
         try:
-            # If this is a JSON file and no field mappings provided, try to detect the format
-            if format == LogFormat.JSON and not field_mappings:
-                try:
-                    with open(temp_path, 'r') as f:
-                        sample_content = f.read()
-                        # Try to determine if it's a JSON array or line-delimited JSON
-                        if sample_content.strip().startswith('['):
-                            # It's a JSON array - parse and process each item
-                            logs = process_json_array(sample_content)
-                            if logs:
-                                await log_store.store_logs(logs)
-                                return {
-                                    "message": f"Successfully ingested {len(logs)} logs from JSON array",
-                                    "format": format,
-                                    "filename": file.filename
-                                }
-                except Exception as e:
-                    print(f"Auto-detection failed: {str(e)}. Falling back to standard parser.")
-                    # Continue with standard parser if auto-detection fails
+            with os.fdopen(temp_fd, 'wb') as temp_file:
+                temp_file.write(content)
+        except:
+            os.close(temp_fd)
+            raise
 
-            # Configure the appropriate log source based on format
-            default_field_mappings = {
-                "timestamp": ["timestamp", "time", "@timestamp"],
-                "level": ["level", "severity", "log_level"],
-                "message": ["message", "msg", "log", "content"],
-                "service": ["service", "source", "application", "app"],
-                "producer_id": ["producer_id", "producer", "source_id", "id"],
-                "metadata": ["metadata", "meta", "attributes", "context"]
-            }
-            
-            config = {"file_path": temp_path}
-            if pattern:
-                config["pattern"] = pattern
-            if timestamp_format:
-                config["timestamp_format"] = timestamp_format
-            if field_mappings:
-                config["field_mappings"] = field_mappings
-            else:
-                config["field_mappings"] = default_field_mappings
+        # If this is a JSON file and no field mappings provided, try to detect the format
+        if format == LogFormat.JSON and not field_mappings:
+            try:
+                with open(temp_path, 'r', encoding='utf-8') as f:
+                    sample_content = f.read()
+                    # Try to determine if it's a JSON array or line-delimited JSON
+                    if sample_content.strip().startswith('['):
+                        # It's a JSON array - parse and process each item
+                        logs = process_json_array(sample_content)
+                        if logs:
+                            await log_store.store_logs(logs)
+                            return {
+                                "message": f"Successfully ingested {len(logs)} logs from JSON array",
+                                "format": format,
+                                "filename": file.filename
+                            }
+            except Exception as e:
+                print(f"Auto-detection failed: {str(e)}. Falling back to standard parser.")
+                # Continue with standard parser if auto-detection fails
 
-            # Create the appropriate log source
-            if format == LogFormat.TEXT:
-                source = TextLogSource(config)
-            elif format == LogFormat.JSON:
-                source = JSONLogSource(config)
-            else:  # SYSLOG
-                source = SyslogSource(config)
+        # Configure the appropriate log source based on format
+        default_field_mappings = {
+            "timestamp": ["timestamp", "time", "@timestamp"],
+            "level": ["level", "severity", "log_level"],
+            "message": ["message", "msg", "log", "content"],
+            "service": ["service", "source", "application", "app"],
+            "producer_id": ["producer_id", "producer", "source_id", "id"],
+            "metadata": ["metadata", "meta", "attributes", "context"]
+        }
+        
+        config = {"file_path": temp_path}
+        if pattern:
+            config["pattern"] = pattern
+        if timestamp_format:
+            config["timestamp_format"] = timestamp_format
+        if field_mappings:
+            config["field_mappings"] = field_mappings
+        else:
+            config["field_mappings"] = default_field_mappings
 
-            # Read and store logs
-            logs = []
-            async for log in source.stream_logs():
-                logs.append(log)
+        # Create the appropriate log source
+        if format == LogFormat.TEXT:
+            source = TextLogSource(config)
+        elif format == LogFormat.JSON:
+            source = JSONLogSource(config)
+        else:  # SYSLOG
+            source = SyslogSource(config)
 
-            # Store logs in ChromaDB
-            if logs:
-                await log_store.store_logs(logs)
+        # Read and store logs
+        logs = []
+        async for log in source.stream_logs():
+            logs.append(log)        # Store logs in ChromaDB
+        if logs:
+            await log_store.store_logs(logs)
 
-            return {
-                "message": f"Successfully ingested {len(logs)} logs",
-                "format": format,
-                "filename": file.filename
-            }
-
-        finally:
-            # Clean up the temporary file
-            os.unlink(temp_path)
-
+        return {
+            "message": f"Successfully ingested {len(logs)} logs",
+            "format": format,
+            "filename": file.filename
+        }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error ingesting log file: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error ingesting log file: {str(e)}")    finally:
+        # Clean up the temporary file
+        if temp_path and os.path.exists(temp_path):
+            import time
+            import gc
+            
+            # Force garbage collection and small delay to ensure file handles are released
+            gc.collect()
+            time.sleep(0.1)
+            
+            # Try multiple times to delete the file
+            for attempt in range(3):
+                try:
+                    os.unlink(temp_path)
+                    break
+                except (PermissionError, OSError) as cleanup_error:
+                    if attempt < 2:  # Not the last attempt
+                        time.sleep(0.5)  # Wait a bit longer
+                        continue
+                    else:
+                        print(f"Warning: Failed to cleanup temporary file {temp_path} after {attempt + 1} attempts: {cleanup_error}")
+                        # On Windows, schedule for deletion on next reboot as last resort
+                        try:
+                            import atexit
+                            atexit.register(lambda: os.unlink(temp_path) if os.path.exists(temp_path) else None)
+                        except:
+                            pass
+            except Exception as cleanup_error:
+                print(f"Warning: Failed to cleanup temporary file {temp_path}: {cleanup_error}")
 
 def process_json_array(content: str) -> List[Dict[str, Any]]:
     """Process a JSON array of logs to ensure proper formatting"""

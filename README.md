@@ -8,7 +8,7 @@
 
 ## 📌 Problem Statement
 
-**Problem Statement 3 – Real-Time Data Experiences with Fluvio**
+**Problem Statement 3 – Real-Time Data Experiences**
 
 ---
 
@@ -43,7 +43,7 @@ AutoAgentDesk addresses the challenges of log analytics and querying by providin
 ### Approach:  
 - Researched existing tools and identified gaps.
 - Designed a scalable architecture for real-time log processing and natural language interaction.
-- Built the core functionality using Python, FastAPI, LangChain, and Fluvio.
+- Built the core functionality using Python, FastAPI, LangChain, and Chromadb.
 - Integrated Chromadb for log storage and trained the AI on diverse log queries.
 - Created a web interface for user-friendly interaction.
 - Iteratively improved the agent based on feedback.
@@ -56,7 +56,7 @@ AutoAgentDesk addresses the challenges of log analytics and querying by providin
 - **Frontend:** HTML, CSS, JavaScript (ReactJS)
 - **Backend:** Python, FastAPI
 - **Database:** Chromadb, PostgreSQL
-- **APIs:** Fluvio (log streaming), LangChain (NLP)
+- **APIs:** LangChain (NLP)
 - **AI Models:** Groq AI, Gemini AI, OpenAI, Anthropic
 - **Hosting:** Docker (containerization), Redis (caching) - not yet implemented
 - **Other Tools:** GitHub (version control), Postman (API testing)
@@ -66,7 +66,6 @@ AutoAgentDesk addresses the challenges of log analytics and querying by providin
 ## ✨ Key Features
 
 - ✅ Multi-model AI support (Groq AI, Gemini AI, OpenAI, Anthropic)  
-- ✅ Real-time log streaming with Fluvio  
 - ✅ Natural language querying for logs  
 - ✅ Multi-source log integration (frontend, backend, database)  
 - ✅ RESTful API and web interface  
@@ -90,7 +89,6 @@ AutoAgentDesk addresses the challenges of log analytics and querying by providin
 - **Python 3.8+**: Ensure Python is installed on your system.
 - **Node.js**: Required for the frontend (if applicable).
 - **Docker**: For containerization (optional, not yet implemented).
-- **Fluvio**: For real-time log streaming.
 - **API Keys**: Required for AI models and services:
   - `GROQ_API_KEY`
   - `OPENAI_API_KEY`
@@ -124,7 +122,6 @@ Access the API at `http://localhost:8000`.
   ### Architecture Diagrams
   
   ![llm-groq](https://github.com/user-attachments/assets/f56899ed-e364-4dee-bc6f-f828aeb828ec)  
-  ![fluvio](https://github.com/user-attachments/assets/18a4aa95-5b9d-45a2-8a7d-fba8c2799ae8)  
   ![architecture](https://github.com/user-attachments/assets/21fca950-0ab3-452b-b389-0ac58fdcb2ff)  
   ![dataflow](https://github.com/user-attachments/assets/8f889f96-3d29-4be8-909d-e900ec380be7)
 
@@ -154,7 +151,7 @@ Access the API at `http://localhost:8000`.
 
 ## 📎 Resources / Credits
 
-- APIs: Fluvio, LangChain, Groq AI,  OpenAI, Anthropic  
+- APIs: LangChain, Groq AI,  OpenAI, Anthropic  
 - Tools: Chromadb, FastAPI, Docker, Redis  
 - Acknowledgements: HackHazards team and community  
 
@@ -170,7 +167,6 @@ My hackathon journey building AutoAgentDesk has been both challenging and reward
 
 ### Technical Insights
 - Integrating Groq's API was seamless once I understood its token limitations. The performance improvement over other models for this specific use case was impressive - responses are noticeably faster.
-- Fluvio's streaming capabilities transformed the project from a basic log analysis tool into a real-time monitoring platform. The producer-consumer architecture enables complex real-time pipelines that traditional log systems can't match.
 - Building a context-aware AI agent that maintains conversation history and previous findings created a more natural and insightful user experience than I initially expected.
 
 ### Community & Inspiration

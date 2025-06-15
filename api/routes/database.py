@@ -5,7 +5,6 @@ import json
 import asyncio
 
 from log_sources.databases import DatabaseLogSource
-from log_ingestion.fluvio_producer import LogProducer
 from storage.chroma_client import ChromaLogStore
 
 router = APIRouter(prefix="/ingest/database", tags=["database"])
@@ -16,10 +15,6 @@ connection_cache = {}
 async def get_log_store():
     from config import CHROMA_DB_PATH, LOG_RETENTION_DAYS, GOOGLE_API_KEY
     return ChromaLogStore(CHROMA_DB_PATH, google_api_key=GOOGLE_API_KEY, retention_days=LOG_RETENTION_DAYS)
-
-async def get_fluvio_producer():
-    from config import FLUVIO_TOPIC
-    return LogProducer(FLUVIO_TOPIC)
 
 @router.post("/test-connection")
 async def test_database_connection(config: Dict[str, Any]):
@@ -75,20 +70,6 @@ async def fetch_database_logs(
                 traceback.print_exc()
                 # Continue with the request even if ChromaDB storage fails
             
-            # Stream logs to Fluvio if configured
-            try:
-                producer = await get_fluvio_producer()
-                for log in logs:
-                    await producer.send_log(
-                        log.get('level', 'INFO'),
-                        log.get('service', 'database'),
-                        log.get('message', 'Database log'),
-                        log.get('metadata', {})
-                    )
-            except Exception as e:
-                # Don't fail if Fluvio streaming fails, just log the error
-                print(f"Warning: Failed to stream logs to Fluvio: {str(e)}")
-        
         return {
             "message": f"Successfully fetched {len(logs)} logs",
             "logs": logs
@@ -103,7 +84,7 @@ async def start_database_streaming(
     config: Dict[str, Any],
     background_tasks: BackgroundTasks
 ):
-    """Start a background task to stream logs from a database to Fluvio"""
+    """Start a background task to stream logs from a database"""
     try:
         # Generate a unique ID for this connection
         import uuid
@@ -174,7 +155,7 @@ async def list_database_tables(config: Dict[str, Any]):
 
 async def stream_logs_background(connection_id: str):
     """
-    Background task to periodically stream logs from a database to Fluvio.
+    Background task to periodically stream logs from a database.
     This runs until manually stopped or an error occurs.
     """
     if connection_id not in connection_cache:
@@ -184,9 +165,8 @@ async def stream_logs_background(connection_id: str):
     connection_cache[connection_id]["status"] = "running"
     
     try:
-        # Initialize log store and producer
+        # Initialize log store
         log_store = await get_log_store()
-        producer = await get_fluvio_producer()
         
         # Get refresh interval from config or default to 60 seconds
         refresh_interval = int(config.get("refresh_interval", 60))
@@ -209,15 +189,6 @@ async def stream_logs_background(connection_id: str):
                 if logs:
                     # Store logs in ChromaDB
                     await log_store.store_logs(logs)
-                    
-                    # Stream logs to Fluvio
-                    for log in logs:
-                        await producer.send_log(
-                            log.get('level', 'INFO'),
-                            log.get('service', 'database'),
-                            log.get('message', 'Database log'),
-                            log.get('metadata', {})
-                        )
                     
                     # Update status
                     connection_cache[connection_id]["logs_processed"] += len(logs)

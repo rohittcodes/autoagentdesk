@@ -12,10 +12,20 @@ class CredentialManager:
         if not self.encryption_key:
             self.encryption_key = Fernet.generate_key()
             print(f"Generated new encryption key. Please save this in your .env file: ENCRYPTION_KEY={self.encryption_key.decode()}")
-        elif isinstance(self.encryption_key, str):
-            self.encryption_key = self.encryption_key.encode()
+        else:
+            # If it's a string, ensure it's properly formatted
+            if isinstance(self.encryption_key, str):
+                # Strip any whitespace and ensure proper encoding
+                self.encryption_key = self.encryption_key.strip().encode('utf-8')
             
-        self.fernet = Fernet(self.encryption_key)
+        try:
+            self.fernet = Fernet(self.encryption_key)
+        except Exception as e:
+            print(f"Error initializing encryption with key: {e}")
+            print("Generating new encryption key...")
+            self.encryption_key = Fernet.generate_key()
+            print(f"Generated new encryption key. Please save this in your .env file: ENCRYPTION_KEY={self.encryption_key.decode()}")
+            self.fernet = Fernet(self.encryption_key)
     
     def encrypt_credentials(self, credentials: Dict[str, str]) -> str:
         """Encrypt AWS credentials"""
